@@ -106,6 +106,7 @@ function FinishModal(props:ModalProps) {
                         url: window.location.href,
                         title: "AdivinheOFilme",
                     }}
+                    disableNative={true}
                 >
                 <Button marginX={2} rightIcon={<FaShareAlt />}>
                     Compartilhar
