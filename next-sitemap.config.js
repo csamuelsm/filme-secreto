@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const NextSitemapConfig = {
-  siteUrl: "https://guess-the-movie-one.vercel.app/",
+  siteUrl: "https://filme-secreto.vercel.app/",
   generateRobotsTxt: true,
 };
 

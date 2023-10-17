@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   themeColor: '#FFFFFF',
   openGraph: {
-    url: 'https://guess-the-movie-one.vercel.app/',
+    url: 'https://filme-secreto.vercel.app/',
     title: 'Filme Secreto',
     description: 'O objetivo de Adivinhe o Filme é acertar o filme secreto do dia. Para isso, você pode chutar filmes e um algoritmo de inteligência artificial dirá o quão parecido com o filme secreto é o filme que você chutou.',
     images: {
