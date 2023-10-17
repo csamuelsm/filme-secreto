@@ -40,8 +40,6 @@ export async function getMostSimilarTags(target:string, guess:string, tagData:Ta
     let guess_tags:string[] = [];
     let most_similar:{[tag:string]:number} = {};
 
-    //console.log('getMostSimilarTags', tagData.slice(345, 346))
-
     Promise.all(tagData.map((el) => {
         return new Promise((res, rej) => {
             //if (el.movie != target && el.movie != guess) rej();
@@ -58,21 +56,6 @@ export async function getMostSimilarTags(target:string, guess:string, tagData:Ta
         })
     }))
 
-    /*for (let i = 0; i < tagData.length; i++) {
-        if (tagData[i].movie == target) target_tags = tagData[i].tags;
-        if (tagData[i].movie == guess) guess_tags = tagData[i].tags;
-    }
-
-    for (let i = 0; i < target_tags.length; i++) {
-        if (!(target_tags[i] in most_similar)) most_similar[target_tags[i]] = 1;
-        else most_similar[target_tags[i]] += 1;
-    }
-
-    for (let i = 0; i < guess_tags.length; i++) {
-        if (!(guess_tags[i] in most_similar)) most_similar[guess_tags[i]] = 1;
-        else most_similar[guess_tags[i]] += 1;
-    }*/
-
     //let keys = Object.keys(most_similar);
     let keys = target_tags.filter(value => guess_tags.includes(value) && !forbidden_words.includes(value));
     let keys_unique = keys.filter((value, index, array) => array.indexOf(value) === index);
@@ -81,6 +64,8 @@ export async function getMostSimilarTags(target:string, guess:string, tagData:Ta
     });
 
     //console.log('most_similar', keys.slice(0, 3));
+
+    if (keys_unique.length == 0) return [];
 
     if (keys_unique.length >= 2) {
         keys_unique = keys_unique.slice(0, 2);

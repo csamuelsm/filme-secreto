@@ -102,7 +102,7 @@ function FinishModal(props:ModalProps) {
             <ModalFooter>
                 <RWebShare
                     data={{
-                        text: encodeURIComponent(`🎥 AdivinheOFilme #${props.gameNumber}\n\n🔵 ${props.blue}\n🟢 ${props.green}\n🟡 ${props.yellow}\n🔴 ${props.red}\n\n🏆 Nº de vitórias seguidas: ${getStreak()}\n🎉 Eu adivinhei o filme em ${getVictoriesPercentage()}% dos meus jogos!\n\n`),
+                        text: encodeURIComponent(`🎥 Filme Secreto #${props.gameNumber}\n\n🔵 ${props.blue}\n🟢 ${props.green}\n🟡 ${props.yellow}\n🔴 ${props.red}\n\n🏆 Nº de vitórias seguidas: ${getStreak()}\n🎉 Eu adivinhei o filme em ${getVictoriesPercentage()}% dos meus jogos!\n\n`),
                         url: window.location.href,
                         title: "AdivinheOFilme",
                     }}
