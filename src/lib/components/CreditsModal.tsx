@@ -12,7 +12,7 @@ function CreditsModal(props:ModalProps) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Credits
+                Créditos
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>

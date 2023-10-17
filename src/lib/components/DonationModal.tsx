@@ -1,6 +1,6 @@
 import { Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, Flex, Link } from '@chakra-ui/react'
 import React, { Dispatch, SetStateAction } from 'react'
-import { FaGithubAlt, FaCoffee } from 'react-icons/fa';
+import { FaGithubAlt, FaCoffee, FaPaypal } from 'react-icons/fa';
 import { FaPix } from 'react-icons/fa6';
 
 type ModalProps = {
@@ -29,8 +29,13 @@ function DonationModal(props:ModalProps) {
                     }}>
                         Pix
                     </Button>
+                    <Link href='https://www.paypal.com/donate/?hosted_button_id=DE9ZRCNT78QW4' isExternal>
+                        <Button w='100%' leftIcon={<FaPaypal/>} variant='outline' colorScheme='blue'>
+                            PayPal
+                        </Button>
+                    </Link>
                     <Link href='https://github.com/sponsors/csamuelsm' isExternal>
-                        <Button w='100%' leftIcon={<FaGithubAlt/>} variant='outline' colorScheme='blue'>
+                        <Button w='100%' leftIcon={<FaGithubAlt/>} variant='outline' colorScheme='gray'>
                             Github Sponsors
                         </Button>
                     </Link>
