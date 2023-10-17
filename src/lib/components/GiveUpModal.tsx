@@ -32,23 +32,23 @@ function GiveUpModal(props:ModalProps) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Give up?
+                Desistir?
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 <Text>
-                    You are almost getting it! Are you sure?
+                    Tem certeza? Você tá quase lá!
                 </Text>
             </ModalBody>
             <ModalFooter>
                 <Button marginX={2} onClick={() => {
                     props.setOpen(false);
                 }}>
-                    Cancel
+                    Cancelar
                 </Button>
                 <Button colorScheme='red' variant='outline' rightIcon={<FaSignOutAlt />}
                     onClick={() => giveUp()}>
-                    Give up
+                    Desistir
                 </Button>
             </ModalFooter>
         </ModalContent>

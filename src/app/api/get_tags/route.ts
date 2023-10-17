@@ -18,7 +18,7 @@ export const GET = async (req: Request) => {
         const fileContent = await fs.readFile(fileDirectory + file);
         const tagList = await JSON.parse(fileContent.toString());
 
-        let top3 = await getMostSimilarTags('Waiting to Exhale (1995)', 'Toy Story 2 (1999)', tagList);
+        let top3 = await getMostSimilarTags('Homem-Aranha (2002)', 'Os Vingadores 2: A Era de Ultron (2015)', tagList);
 
         return NextResponse.json({ req: top3 }, { status: 200 });
     } catch (err) {

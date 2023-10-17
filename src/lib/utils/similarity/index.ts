@@ -3,7 +3,39 @@ type TagsData = {
     tags:string[]
 }
 
+const translate = require('translate-google');
+
+const forbidden_words:string[] = ['',
+'boring', 'pg', 'a', 'aa', 'aba', 'ababa', 'abcd', 'dvi', 'bd', 'bdvideo', 'dv', 'dvd', 'dvd collection',
+'dvd1',
+'dvdalternate endings',
+'dvdr',
+'dvdram',
+'dvdvideo',
+'seen',
+'seen 2006',
+'seen 2007',
+'seen 2008',
+'seen 2009',
+'seen 2010',
+'seen 2011',
+'seen 2012',
+'seen 2013',
+'seen 2014',
+'seen 2015',
+'seen 2016',
+'seen 2017',
+'seen 2018',
+'seen 2019',
+'seen a while ago',
+'seen at the cinema',
+'seen it before',
+'seen more than once',
+'seen on airplane',
+'seen part of'];
+
 export async function getMostSimilarTags(target:string, guess:string, tagData:TagsData[]) {
+    console.log('getMostSimilarTags started')
     let target_tags:string[] = [];
     let guess_tags:string[] = [];
     let most_similar:{[tag:string]:number} = {};
@@ -42,7 +74,7 @@ export async function getMostSimilarTags(target:string, guess:string, tagData:Ta
     }*/
 
     //let keys = Object.keys(most_similar);
-    let keys = target_tags.filter(value => guess_tags.includes(value));
+    let keys = target_tags.filter(value => guess_tags.includes(value) && !forbidden_words.includes(value));
     let keys_unique = keys.filter((value, index, array) => array.indexOf(value) === index);
     keys_unique.sort(function(a, b) {
         return most_similar[b] - most_similar[a];
@@ -50,6 +82,11 @@ export async function getMostSimilarTags(target:string, guess:string, tagData:Ta
 
     //console.log('most_similar', keys.slice(0, 3));
 
-    if (keys_unique.length >= 2) return keys_unique.slice(0, 2);
-    else return keys_unique;
+    if (keys_unique.length >= 2) {
+        keys_unique = keys_unique.slice(0, 2);
+    }
+
+    let values = await Promise.all(keys_unique.map((key) => translate(key, {from:'en', to:'pt'})))
+    //console.log('similarity-values', values);
+    return values;
 }

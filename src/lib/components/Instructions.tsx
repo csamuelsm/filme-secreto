@@ -14,44 +14,44 @@ function Instructions() {
         <Heading as="h3" size="md" display="flex" flexDirection="row" alignItems="center" >
             <FaInfoCircle style={{
                 marginRight: "3px"
-            }} /> How to play
+            }} /> Como jogar
         </Heading>
 
         {currInstr === 1 &&
             <>
                 <Text marginY={3}>
-                    The objective of the game is to <u><b>discover the secret movie</b></u> of the day. To do this, you must guess movies that you think are similar to the secret movie. You can guess as many times as you want.
-                    Type your guess in the above text input and select the movie you want from the list.
+                    O objetivo do jogo é <u><b>descobrir o filme secreto</b></u> do dia. Para fazer isso, você deve chutar filmes que você acha que podem ser similares ao filme secreto. Você pode chutar quantas vezes quiser.
+                    Digite o seu palpite na caixa de texto acima e selecione o filme que você deseja da lista.
                 </Text>
             </>
         }
 
         {currInstr === 2 &&
             <Text marginY={3}>
-                An artificial intelligence algorithm will tell you <u><b>how similar</b></u> the movies you guessed are to the secret movie. It was trained on a large set of movies and calculated the similarity between movies <u><b>based on several tags</b></u> users assigned to each movie. Sometimes the loading time is long because the AI model has a lot of data and it is necessary to load all this data and organize it.
+                Um algoritmo de aprendizado de máquina irá lhe dizer o <u><b>quão similar</b></u> o filme que você chutou é do filme secreto. Este algoritmo foi treinado em um grande conjunto de <i>tags</i> que milhares de usuários atribuíram aos filmes. Às vezes, o tempo de carregamento do jogo pode ser um pouco demorado pois é necessário carregar todos estes dados.
             </Text>
         }
 
         {currInstr === 3 &&
             <Text marginY={3}>
-                <b><u>Obs.<sup>1</sup></u>: </b> The database contains movies released <u><b>up until 2018 and some from 2019</b></u>, so the search won't find any movies released after this and the secret movie is always a movie released up to this date.
-                Also, some little known movies were removed from the database.
+                <b><u>Obs.<sup>1</sup></u>: </b> O conjunto de dados contém filmes lançados <u><b>até 2018 e alguns de 2019</b></u>, portanto a busca nunca irá encontrar um filme lançados após estes anos. Além disso, o filme secreto sempre será um filme lançado até estas datas.
+                Ah, e alguns filmes pouquíssimo conhecidos foram removidos do conjunto de dados.
             </Text>
         }
 
         {currInstr === 4 &&
             <Text marginY={3}>
-                <b><u>Obs.<sup>2</sup></u>: </b> If you <u><b>search for some movie that starts with an article</b></u>, for example 'The Devil Wears Prada', it may not appear because the movie can be in the database as 'Devil Wears Prada, The'.
-                So if you search for a movie like this and it doesn't appear, <u><b>try again omitting the article</b></u>.
+                <b><u>Obs.<sup>2</sup></u>: </b> Se você <u><b>pesquisar por algum filme que começa com um artigo</b></u> como, por exemplo, 'O Diabo Veste Prada', ele pode não aparecer pois é possível que o filme esteja registrado no banco de dados como 'Diabo Veste Prata, O'.
+                Então, se você procurar por um filme assim e ele não aparecer, <u><b>tente novamente omitindo o artigo do início</b></u>.
             </Text>
         }
 
         {currInstr === 5 &&
             <>
                 <Text marginY={3}>
-                    You can give up at any time and another game will be available only in the next day. You can play the older games meanwhile, but it won't increase your streak count.
-                    You can also play this game with a group, for example one person guessing a movie at each round.
-                    Finally and most important, <u><b>have fun and happy playing!</b></u>
+                    Você pode desistir a qualquer momento e outro jogo ficará disponível no dia seguinte. Enquanto espera, você pode jogar os jogos antigos, porém eles não contam para a contagem de vitórias seguidas.
+                    Jogar este jogo em grupo também pode ser muito divertido, por exemplo com uma pessoa do grupo chutando um filme em cada rodada até alguém acertar.
+                    Finalmente e o mais importante, <u><b>divirta-se e bom jogo!</b></u>
                 </Text>
             </>
         }
@@ -64,7 +64,7 @@ function Instructions() {
             }}
             leftIcon={<FaArrowLeft />}
             >
-                Previous
+                Anterior
             </Button>
             <Button marginLeft='auto' isDisabled={currInstr == 5}
             onClick={() => {
@@ -74,7 +74,7 @@ function Instructions() {
             }}
             rightIcon={<FaArrowRight />}
             >
-                Next
+                Próximo
             </Button>
         </Flex>
     </Flex>

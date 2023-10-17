@@ -46,20 +46,20 @@ function SimilarTags(props:SimilarTagsProps) {
         {isLoading &&
         <Flex flexDirection='row' alignItems='center'>
             <Spinner size='xs' marginRight={1} />
-            <Text fontSize="xs" marginTop={0}>Loading most similar tags...</Text>
+            <Text fontSize="xs" marginTop={0}>Carregando tags mais similares...</Text>
         </Flex>
         }
 
-        {!isLoading && top.length > 0 &&
-            <Text fontSize="xs" marginTop={0}>Top similar tags: {top.join(', ')}</Text>
+        {!isLoading && top && top.length > 0 &&
+            <Text fontSize="xs" marginTop={0}>Top tags similares: {top.join(', ')}</Text>
         }
 
-        {!isLoading && top.length == 0 &&
-            <Text fontSize="xs" marginTop={0}>No similar tags</Text>
+        {!isLoading && top && top.length == 0 &&
+            <Text fontSize="xs" marginTop={0}>Nenhuma tag similar</Text>
         }
 
-        {error &&
-            <Text fontSize="xs" marginTop={0} color='red.500'>Couldn't get the most similar tags</Text>
+        {error || (!isLoading && !top) &&
+            <Text fontSize="xs" marginTop={0} color='red.500'>Não foi possível obter as tags similares</Text>
         }
     </Flex>
   )

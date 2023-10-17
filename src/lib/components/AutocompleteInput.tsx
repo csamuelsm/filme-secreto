@@ -23,6 +23,14 @@ type AutocompleteProps = {
     setCanGiveUp: Dispatch<SetStateAction<boolean>>,
     gameNumber: number,
     oldGame: boolean,
+    setBlue: Dispatch<SetStateAction<number>>,
+    setGreen: Dispatch<SetStateAction<number>>,
+    setYellow: Dispatch<SetStateAction<number>>,
+    setRed: Dispatch<SetStateAction<number>>,
+    blue: number,
+    green: number,
+    yellow:number,
+    red: number,
 }
 
 function getColorScheme(sim:number) {
@@ -62,6 +70,14 @@ function AutocompleteInput( props:AutocompleteProps ) {
   }[]>([]);
   const [mostSimilar, setMostSimilar] = useState<number>(0);
   const { colorMode, toggleColorMode } = useColorMode();
+
+  function increaseCorrespondingColor(val:number) {
+    let color = getColorScheme(val);
+    if (color == 'blue') props.setBlue(props.blue+1);
+    else if (color == 'green') props.setGreen(props.green+1);
+    else if (color == 'yellow') props.setYellow(props.yellow+1);
+    else if (color == 'pink') props.setRed(props.red+1);
+  }
 
   function winGame() {
     if (!lastPlayedToday()) {
@@ -219,7 +235,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
   useEffect(() => {
     //console.log('guess changed', guess, allWords, currWordData)
     if (guess && allWords && currWordData) {
-        console.log('checking guess');
+        //console.log('checking guess');
         let guessData = binarySearch(allWords, guess);
         //@ts-ignore
         let sim = Math.abs((similarity(currWordData.vector, guessData.vector)*100));
@@ -227,6 +243,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
             sim = 100;
             winGame();
         }
+        increaseCorrespondingColor(transformValue(sim, mostSimilar));
         let newGuess = {
             //@ts-ignore
             word: guessData.word,
@@ -261,17 +278,17 @@ function AutocompleteInput( props:AutocompleteProps ) {
             <VStack alignItems="center" justifyContent="center" textAlign="center">
                 <Spinner />
                 <Text fontSize="sm">
-                    {status === 'movies' && 'Getting movies data...'}
-                    {status === 'organizing' && 'Organizing movies data...'}
-                    {status === 'vectors' && 'Obtaining similarities data...'}
-                    {status === 'word2vec' && 'Structuring similarities data...'}
+                    {status === 'movies' && 'Obtendo os dados dos filmes...'}
+                    {status === 'organizing' && 'Organizando os dados...'}
+                    {status === 'vectors' && 'Obtendo os dados de similaridades...'}
+                    {status === 'word2vec' && 'Estruturando os dados de similaridade...'}
                 </Text>
-                {status === 'vectors' && <Text fontSize="xs" >This may take a while.</Text>}
+                {status === 'vectors' && <Text fontSize="xs" >Isto pode demorar um pouco.</Text>}
             </VStack>}
 
         {status === null &&
         <>
-            <Text fontSize="xs"><b>Game</b> {'#'}{props.gameNumber} / <b>Nº of guesses:</b> {similarities.length}</Text>
+            <Text fontSize="xs"><b>Jogo</b> {'#'}{props.gameNumber} / <b>Nº de tentativas:</b> {similarities.length}</Text>
             <Popover
                 isOpen={popoverOpen}
                 closeOnBlur={false}
@@ -282,7 +299,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
             >
                 <PopoverAnchor>
                     <Input size="lg"
-                    placeholder='Type a movie title'
+                    placeholder='Digite o nome de um filme'
                     variant="filled"
                     value={value}
                     onChange={handleChange}
@@ -299,7 +316,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
                         divider={<StackDivider borderColor='gray.200' />}
                         spacing={2}
                         align='stretch'>
-                            {isLoading && <HStack alignItems="center" justifyContent="center"><Spinner /><Text fontSize="sm">Searching movies...</Text></HStack>}
+                            {isLoading && <HStack alignItems="center" justifyContent="center"><Spinner /><Text fontSize="sm">Procurando...</Text></HStack>}
                             {!isLoading && search}
                         </VStack>
                     </PopoverBody>
@@ -329,7 +346,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
                         <SimilarTags target={props.word} guess={el.word} />
                     }
                     {transformValue(el.similarity, mostSimilar) < 25 &&
-                        <Text fontSize="xs" marginTop={0} color='red.500'>Similarity too small to get tags.</Text>
+                        <Text fontSize="xs" marginTop={0} color='red.500'>Similaridade muito pequena para obter tags.</Text>
                     }
                     </Box>
                 )

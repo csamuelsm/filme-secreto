@@ -19,7 +19,7 @@ const Footer = ( props:FooterProps ) => {
           onClick={() => {
               props.setDonation(true);
           }}>
-          Donate
+          Doar
       </Button>
     </Flex>
   );

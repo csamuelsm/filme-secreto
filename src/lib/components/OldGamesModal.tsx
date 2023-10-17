@@ -35,12 +35,12 @@ function OldGamesModal(props:ModalProps) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Old Games
+                Jogos Antigos
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 <Text>
-                    Click on the game you want to play:
+                    Clique no jogo do dia que você quer jogar:
                 </Text>
                 <Grid templateColumns='repeat(2, 1fr)' gap={3} marginY={3}>
                     {games.map((el, idx) => {
@@ -51,7 +51,7 @@ function OldGamesModal(props:ModalProps) {
                                     {currGameDate.toDateString()}
                                 </Text>
                                 <Link href={`/old/${number-idx}`}>
-                                    <Button>Game {'#'}{number-idx}</Button>
+                                    <Button>Jogo {'#'}{number-idx}</Button>
                                 </Link>
                             </GridItem>
                         )

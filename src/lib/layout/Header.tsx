@@ -27,7 +27,7 @@ const Header = (props:HeaderProps) => {
       <GiveUpModal open={giveUp} setOpen={setGiveUp} setFinishOpen={props.finishOpen} setCanGiveUp={props.setCanGiveUp} gameNumber={props.gameNumber} isOld={props.isOld} />
       <Box>
         <Heading as="h1" size="md" display="flex" flexDirection="row" alignItems="center">
-          <MdMovieFilter /> GuessTheMovie
+          <MdMovieFilter /> FilmeSecreto
         </Heading>
       </Box>
       <Flex flexDirection="row" alignItems="flex-end" justifyContent="flex-end" w="100%">
@@ -55,18 +55,18 @@ const Header = (props:HeaderProps) => {
               <MenuItem icon={<FaRegCalendarAlt/>} onClick={() => {
                 props.setOldGames(true);
               }}>
-                Old games
+                Jogos antigos
               </MenuItem>
               <MenuItem icon={<FaHandHoldingHeart/>} onClick={() => {
                 props.setDonation(true);
-              }}>Donate</MenuItem>
+              }}>Doar</MenuItem>
               <MenuItem as='a' href='https://forms.gle/32FbMft1d9hiVep49' icon={<FaRegCommentAlt/>}>
                 Feedback
               </MenuItem>
               <MenuItem icon={<FaRegLightbulb/>} onClick={() => {
                 props.setCredits(true);
               }}>
-                Credits
+                Créditos
               </MenuItem>
             </MenuList>
           </Menu>

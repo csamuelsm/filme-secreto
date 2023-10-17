@@ -17,23 +17,23 @@ function CreditsModal(props:ModalProps) {
             <ModalCloseButton />
             <ModalBody>
                 <Text marginY={3}>
-                    This game was created by {' '}
+                    Este jogo foi criado por {' '}
                     <Link href='https://meu-blog-csamuelsm.vercel.app/' >
                         Samuel Santos
-                    </Link> and was inspired by {' '}
+                    </Link> inspirado pelo {' '}
                     <Link href='https://contexto.me/'>
                         Contexto.me
                     </Link>
                     .
                 </Text>
                 <Text marginY={3}>
-                    The base UI is made with Chakra UI with the {' '}
+                    A base da interface usa a Chakra UI com o template de {' '}
                     <Link href='https://nextarter-chakra.sznm.dev/'>
-                        sznm template
+                        sznm
                     </Link>.
                 </Text>
                 <Text marginY={3}>
-                    The data used in this game is from MovieLens dataset.
+                    Os dados utilizados neste jogo são do conjunto de dados públicos do MovieLens.
                 </Text>
             </ModalBody>
         </ModalContent>

@@ -12,25 +12,25 @@ function PixModal(props:ModalProps) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Make a Pix
+                Fazer um pix
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 <Text>
-                    You can scan this QR Code to make a Pix to Cicero Samuel Santos Morais.
+                    Você pode scanear este QR Code e fazer um pix para Cicero Samuel Santos Morais.
                 </Text>
                 <Flex w='100%' textAlign='center' alignItems='center' flexDirection='column'>
                     <Image src='qr-code-pix.png' alt='qr-code pix' marginY={3} />
                 </Flex>
                 <Text>
-                    Or you can use the key: <b>9860c0ad-1cfe-4b59-9d76-1a43a4e3461e</b>
+                    Ou, se preferir, pode usar a chave: <b>9860c0ad-1cfe-4b59-9d76-1a43a4e3461e</b>
                 </Text>
             </ModalBody>
             <ModalFooter>
                 <Button marginX={2} onClick={() => {
                     props.setOpen(false);
                 }}>
-                    Cancel
+                    Cancelar
                 </Button>
             </ModalFooter>
         </ModalContent>

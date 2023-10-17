@@ -50,6 +50,7 @@
     "react-icons": "^4.10.1",
     "react-web-share": "^2.0.2",
     "search.ts": "^2.0.2",
+    "translate-google": "^1.5.0",
     "word2vec-loader-js": "^1.1.4",
     "word2vec-stream": "^1.0.1",
     "word2vec.js": "^0.1.3"

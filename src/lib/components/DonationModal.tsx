@@ -15,14 +15,20 @@ function DonationModal(props:ModalProps) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Donate
+                Fazer uma doação
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 <Text>
-                    You can donate any value to support this game. Choose the best option for you:
+                    Você pode doar qualquer valor para apoiar este jogo. Escolha a melhor opção para você:
                 </Text>
                 <Flex flexDirection="column" gap={2} marginY={3}>
+                    <Button w='100%' leftIcon={<FaPix/>} variant='outline' colorScheme='green'
+                    onClick={() => {
+                        props.pixModal(true);
+                    }}>
+                        Pix
+                    </Button>
                     <Link href='https://github.com/sponsors/csamuelsm' isExternal>
                         <Button w='100%' leftIcon={<FaGithubAlt/>} variant='outline' colorScheme='blue'>
                             Github Sponsors
@@ -33,12 +39,6 @@ function DonationModal(props:ModalProps) {
                             Buy me a Coffee
                         </Button>
                     </Link>
-                    <Button w='100%' leftIcon={<FaPix/>} variant='outline' colorScheme='green'
-                    onClick={() => {
-                        props.pixModal(true);
-                    }}>
-                        Pix
-                    </Button>
                 </Flex>
             </ModalBody>
             {/*<ModalFooter>

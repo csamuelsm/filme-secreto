@@ -8,11 +8,11 @@ type RootLayoutProps = {
   children: React.ReactNode;
 };
 
-const APP_NAME = 'GuessTheMovie | Daily Movie Guessing Game';
+const APP_NAME = 'Filme Secreto | Um jogo diário';
 
 export const metadata: Metadata = {
-  title: { default: APP_NAME, template: '%s | GuessTheMovie' },
-  description: 'The objective of the game Guess The Movie is to discover the secret movie of the day. To do this, you must guess movies that you think are similar to the secret movie. It is similar to games like Wordle and Contexto.',
+  title: { default: APP_NAME, template: '%s | Filme Secreto' },
+  description: 'O objetivo de Filme Secreto é acertar o filme secreto do dia. Para isso, você pode chutar filmes e um algoritmo de inteligência artificial dirá o quão parecido com o filme secreto é o filme que você chutou.',
   viewport: {
     width: 'device-width',
     initialScale: 1,
@@ -29,11 +29,11 @@ export const metadata: Metadata = {
   themeColor: '#FFFFFF',
   openGraph: {
     url: 'https://guess-the-movie-one.vercel.app/',
-    title: 'GuessTheMovie',
-    description: 'The objective of the game Guess The Movie is to discover the secret movie of the day. To do this, you must guess movies that you think are similar to the secret movie.  It is similar to games like Wordle and Contexto.',
+    title: 'Filme Secreto',
+    description: 'O objetivo de Adivinhe o Filme é acertar o filme secreto do dia. Para isso, você pode chutar filmes e um algoritmo de inteligência artificial dirá o quão parecido com o filme secreto é o filme que você chutou.',
     images: {
       url: 'gtm-og-image.png',
-      alt: 'Guess The Movie og-image',
+      alt: 'Filme Secreto og-image',
     },
   },
   twitter: {

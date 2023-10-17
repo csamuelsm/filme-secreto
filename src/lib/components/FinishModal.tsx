@@ -14,6 +14,10 @@ type ModalProps = {
     answer: string,
     setDonation: Dispatch<SetStateAction<boolean>>,
     gameNumber: number,
+    blue:number,
+    green:number,
+    yellow:number,
+    red:number
 }
 
 function FinishModal(props:ModalProps) {
@@ -22,12 +26,12 @@ function FinishModal(props:ModalProps) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Game {'#'}{props.gameNumber} finished!
+                Jogo {'#'}{props.gameNumber} finalizado!
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
 
-                <Text marginY={3}>Another game will be available tomorrow!</Text>
+                <Text marginY={3}>Outro jogo estará disponível amanhã!</Text>
 
                 <Divider />
 
@@ -40,35 +44,35 @@ function FinishModal(props:ModalProps) {
                 <Grid templateColumns='repeat(2, 1fr)' gap={6} marginY={4}>
 
                     <GridItem w='100%' textAlign='center' display='flex' flexDirection='column'>
-                        <Text fontSize='xs'>Games played</Text>
+                        <Text fontSize='xs'>Nº de jogos</Text>
                         <Heading size='md'>
                             {getNumberOfGames()}
                         </Heading>
                     </GridItem>
 
                     <GridItem w='100%' textAlign='center' display='flex' flexDirection='column'>
-                        <Text fontSize='xs'>Victories</Text>
+                        <Text fontSize='xs'>Vitórias</Text>
                         <Heading size='md'>
                             {getNumberOfVictories()}
                         </Heading>
                     </GridItem>
 
                     <GridItem w='100%' textAlign='center' display='flex' flexDirection='column'>
-                        <Text fontSize='xs'>Percentage of victories</Text>
+                        <Text fontSize='xs'>Porcentagem de vitórias</Text>
                         <Heading size='md'>
                             {getVictoriesPercentage()} %
                         </Heading>
                     </GridItem>
 
                     <GridItem w='100%' textAlign='center' display='flex' flexDirection='column'>
-                        <Text fontSize='xs'>Streak</Text>
+                        <Text fontSize='xs'>Vitórias seguidas</Text>
                         <Heading size='md'>
                             {getStreak()}
                         </Heading>
                     </GridItem>
 
                     <GridItem colSpan={2} w='100%' textAlign='center' display='flex' flexDirection='column'>
-                        <Text fontSize='xs'>Next game in</Text>
+                        <Text fontSize='xs'>Próximo jogo em</Text>
                         <CountDown />
                     </GridItem>
                 </Grid>
@@ -78,7 +82,7 @@ function FinishModal(props:ModalProps) {
                         <h2>
                             <AccordionButton>
                                 <Box as='span' flex='1' textAlign='left'>
-                                    Reveal answer
+                                    Revelar resposta
                                 </Box>
                                 <AccordionIcon />
                             </AccordionButton>
@@ -92,26 +96,26 @@ function FinishModal(props:ModalProps) {
                 {/*<Divider />*/}
 
                 <Text marginY={3} fontSize="sm">
-                    If you liked this game, please consider donating any value.
+                    Se você gostou deste jogo, por favor considere fazer uma doação de qualquer valor para apoiar sua manutenção.
                 </Text>
             </ModalBody>
             <ModalFooter>
                 <RWebShare
                     data={{
-                        text: `#GuessTheMovie${props.gameNumber}🎥%0D%0A%0D%0A🏆 Current Streak: ${getStreak()}%0D%0A🎉 I guessed the movie in ${getVictoriesPercentage()}% of my games!%0D%0A%0D%0A`,
+                        text: encodeURIComponent(`🎥 AdivinheOFilme #${props.gameNumber}\n\n🔵 ${props.blue}\n🟢 ${props.green}\n🟡 ${props.yellow}\n🔴 ${props.red}\n\n🏆 Nº de vitórias seguidas: ${getStreak()}\n🎉 Eu adivinhei o filme em ${getVictoriesPercentage()}% dos meus jogos!\n\n`),
                         url: window.location.href,
-                        title: "GuessTheMovie",
+                        title: "AdivinheOFilme",
                     }}
                 >
                 <Button marginX={2} rightIcon={<FaShareAlt />}>
-                    Share
+                    Compartilhar
                 </Button>
                 </RWebShare>
                 <Button colorScheme='green' variant='outline' rightIcon={<FaHandHoldingHeart />}
                     onClick={() => {
                         props.setDonation(true);
                     }}>
-                    Donate
+                    Doar
                 </Button>
             </ModalFooter>
         </ModalContent>
