@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: RootLayoutProps) => {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body>
         <Providers>
           <Layout>{children}</Layout>
