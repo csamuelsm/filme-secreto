@@ -6,8 +6,8 @@ type TagsData = {
 const translate = require('translate-google');
 
 function traduzir(tag:string) {
-    if (tag == 'bechdel test: pass') return 'teste de Bechdel: aprovado';
-    else if (tag == 'bechdel test: fail') return 'teste de Bechdel: reprovado';
+    if (tag == 'bechdel test: pass' || tag == 'bechdel testpass') return 'teste de Bechdel: aprovado';
+    else if (tag == 'bechdel test: fail' || tag == 'bechdel testfail') return 'teste de Bechdel: reprovado';
     else return translate(tag, {from:'en', to:'pt'});
 }
 
