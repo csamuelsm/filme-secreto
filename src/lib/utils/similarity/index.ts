@@ -5,6 +5,12 @@ type TagsData = {
 
 const translate = require('translate-google');
 
+function traduzir(tag:string) {
+    if (tag == 'bechdel test: pass') return 'teste de Bechdel: aprovado';
+    else if (tag == 'bechdel test: fail') return 'teste de Bechdel: reprovado';
+    else return translate(tag, {from:'en', to:'pt'});
+}
+
 const forbidden_words:string[] = ['',
 'boring', 'pg', 'a', 'aa', 'aba', 'ababa', 'abcd', 'dvi', 'bd', 'bdvideo', 'dv', 'dvd', 'dvd collection',
 'dvd1',
@@ -32,7 +38,38 @@ const forbidden_words:string[] = ['',
 'seen it before',
 'seen more than once',
 'seen on airplane',
-'seen part of'];
+'seen part of',
+'ridiculous dialogue',
+'stupid',
+'silly',
+'sucks',
+'ridiculous',
+'underdog',
+'dumb science',
+'dumb',
+'dumb screenplay',
+'obnoxious',
+'sexy redhead',
+'dumb but funny',
+'ugly', 'idiots', 'bullshit history', 'dumb humor',
+'stupid stereotypes', 'stupid as hell', 'stupid ending',
+'garbage', 'crap', 'uwe boll sucks', 'dumb blonde', 'ridiculous end',
+'fucked up', 'idiotic', 'bullshit science', 'gross', 'dumb plot',
+'flabby ass', 'womanizer', 'stupidity', 'transvestite', 'garbage dump',
+'white trash', 'idiot', 'dumbhumor', 'stupid but funny', 'harley quinns ass',
+'ridiculous characters', 'stupid characters', 'stupid plot', 'silly plot',
+'grossout', 'trash', 'trash movie', 'dumb ending', 'ridiculous training sequence',
+'absolute crap', 'high brow stupidity', 'stupid main character', 'silly ending',
+'stupid story', 'violently stupid', 'wtf', 'stupid twist', 'disgusting', 'ridiculous',
+'white trash', 'moronic', 'stupid comedy', 'shit', 'two hours of suck',
+'watched it for the boobs', 'crap ending', 'ugly woman', 'idiot plot',
+'wtf ending', 'motherfucker', 'rubber nipples', 'pathetic', 'ending sucked',
+'stupid heroes', 'bullshit', 'stupid fight scenes', 'crappy', 'ridiculous ending',
+'very dumb', 'full of stupid things', 'idiotic characters', 'extremely stupid humor',
+'sluts', 'damn dirty apes', 'pointless', 'stupid people', 'ridiculous monsters',
+'pretentious garbage about good things', 'wtf', 'dumb fun', 'protagonist is an idiot',
+'batshit crazy', 'stupid children ruin everything', 'useless', 'transvestites',
+'underaged sexchild porn', 'evangelical christian trash'];
 
 export async function getMostSimilarTags(target:string, guess:string, tagData:TagsData[]) {
     console.log('getMostSimilarTags started')
@@ -71,7 +108,7 @@ export async function getMostSimilarTags(target:string, guess:string, tagData:Ta
         keys_unique = keys_unique.slice(0, 2);
     }
 
-    let values = await Promise.all(keys_unique.map((key) => translate(key, {from:'en', to:'pt'})))
+    let values = await Promise.all(keys_unique.map((key) => traduzir(key)))
     //console.log('similarity-values', values);
     return values;
 }
