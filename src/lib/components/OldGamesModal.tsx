@@ -31,7 +31,7 @@ function OldGamesModal(props:ModalProps) {
   })
 
   return (
-    <Modal onClose={() => props.setOpen(false)} size='sm' isOpen={props.open} isCentered>
+    <Modal onClose={() => props.setOpen(false)} size='sm' isOpen={props.open} isCentered scrollBehavior='inside'>
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
@@ -48,7 +48,7 @@ function OldGamesModal(props:ModalProps) {
                         return (
                             <GridItem w='100%'>
                                 <Text fontSize="xs">
-                                    {currGameDate.toDateString()}
+                                    {currGameDate.toLocaleDateString('pt-BR')}
                                 </Text>
                                 <Link href={`/old/${number-idx}`}>
                                     <Button>Jogo {'#'}{number-idx}</Button>
