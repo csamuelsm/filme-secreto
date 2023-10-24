@@ -97,13 +97,16 @@ function FinishModal(props:ModalProps) {
                 {/*<Divider />*/}
 
                 <Text marginY={3} fontSize="sm">
-                    Se você gostou deste jogo, por favor considere fazer uma doação de qualquer valor para apoiar sua manutenção.
+                    Se você gostou deste jogo, por favor considere fazer uma <b>doação de qualquer valor para apoiar sua manutenção.</b>
+                </Text>
+                <Text marginY={3} fontSize="sm">
+                    Compartilhe com seus amigos no <b>Twitter, Telegram, WhatsApp, Facebook</b> e outras redes sociais no botão abaixo.
                 </Text>
             </ModalBody>
             <ModalFooter>
                 <RWebShare
                     data={{
-                        text: encodeURIComponent(`🎥 Filme Secreto #${props.gameNumber}\n\n🔵 ${props.blue}\n🟢 ${props.green}\n🟡 ${props.yellow}\n🔴 ${props.red}\n\n🏆 Nº de vitórias seguidas: ${getStreak()}\n🎉 Eu adivinhei o filme em ${getVictoriesPercentage()}% dos meus jogos!\n\n`),
+                        text: encodeURIComponent(`🎥 Filme Secreto #${props.gameNumber}\n\n🔵 ${props.blue}\n🟢 ${props.green}\n🟡 ${props.yellow}\n🔴 ${props.red}\n\n🏆 Nº de vitórias seguidas: ${getStreak()}\n\n`),
                         url: window.location.href,
                         title: "AdivinheOFilme",
                     }}

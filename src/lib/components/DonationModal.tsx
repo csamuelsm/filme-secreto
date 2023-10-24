@@ -2,6 +2,7 @@ import { Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton,
 import React, { Dispatch, SetStateAction } from 'react'
 import { FaGithubAlt, FaCoffee, FaPaypal } from 'react-icons/fa';
 import { FaPix } from 'react-icons/fa6';
+import { SiPicpay } from 'react-icons/si';
 
 type ModalProps = {
     open: boolean,
@@ -15,20 +16,25 @@ function DonationModal(props:ModalProps) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Fazer uma doação
+                Apoiar o jogo
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 <Text>
-                    Você pode doar qualquer valor para apoiar este jogo. Escolha a melhor opção para você:
+                    Você pode doar <b>qualquer valor para apoiar este jogo</b>. Escolha a melhor opção para você:
                 </Text>
                 <Flex flexDirection="column" gap={2} marginY={3}>
-                    <Button w='100%' leftIcon={<FaPix/>} variant='outline' colorScheme='green'
+                    <Button w='100%' leftIcon={<FaPix/>} variant='outline' colorScheme='teal'
                     onClick={() => {
                         props.pixModal(true);
                     }}>
                         Pix
                     </Button>
+                    <Link href='https://picpay.me/csamuelssm' isExternal>
+                        <Button w='100%' leftIcon={<SiPicpay/>} variant='outline' colorScheme='whatsapp'>
+                            PicPay
+                        </Button>
+                    </Link>
                     <Link href='https://www.paypal.com/donate/?hosted_button_id=DE9ZRCNT78QW4' isExternal>
                         <Button w='100%' leftIcon={<FaPaypal/>} variant='outline' colorScheme='blue'>
                             PayPal
