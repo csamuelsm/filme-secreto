@@ -8,11 +8,11 @@ type RootLayoutProps = {
   children: React.ReactNode;
 };
 
-const APP_NAME = 'Filme Secreto | Um jogo diário';
+const APP_NAME = 'Filme Secreto | Jogo diário de adivinhar o filme com ajuda de uma IA!';
 
 export const metadata: Metadata = {
   title: { default: APP_NAME, template: '%s | Filme Secreto' },
-  description: 'O objetivo de Filme Secreto é acertar o filme secreto do dia. Para isso, você pode chutar filmes e um algoritmo de inteligência artificial dirá o quão parecido com o filme secreto é o filme que você chutou.',
+  description: 'O objetivo de Filme Secreto é acertar o filme secreto do dia com a ajuda de uma IA. Para isso, você pode chutar filmes e um algoritmo de inteligência artificial dirá o quão parecido com o filme secreto é o filme que você chutou. É um jogo similar a Contexto e Termooo.',
   viewport: {
     width: 'device-width',
     initialScale: 1,
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     url: 'https://filme-secreto.vercel.app/',
     title: 'Filme Secreto',
-    description: 'O objetivo de Adivinhe o Filme é acertar o filme secreto do dia. Para isso, você pode chutar filmes e um algoritmo de inteligência artificial dirá o quão parecido com o filme secreto é o filme que você chutou.',
+    description: 'O objetivo de Filme Secreto é acertar o filme secreto do dia com a ajuda de uma IA. Para isso, você pode chutar filmes e um algoritmo de inteligência artificial dirá o quão parecido com o filme secreto é o filme que você chutou. É um jogo similar a Contexto e Termooo.',
     images: {
       url: 'gtm-og-image.png',
       alt: 'Filme Secreto og-image',
