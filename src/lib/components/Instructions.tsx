@@ -28,7 +28,7 @@ function Instructions() {
 
         {currInstr === 2 &&
             <Text marginY={3}>
-                Um algoritmo de aprendizado de máquina irá lhe dizer o <u><b>quão similar</b></u> o filme que você chutou é do filme secreto. Este algoritmo foi treinado em um grande conjunto de <i>tags</i> que milhares de usuários atribuíram aos filmes. As tags passaram por uma filtragem para remover tags sem sentido ou que representam opiniões subjetivas dos usuários, porém pode ser que alguma tag ou outra sobreviveram pela filtragem. Se você encontrar alguma tag deste tipo ou uma tag inapropriada, pode submeter um feedback pelo menu e ela será removida o quanto antes.
+                Um algoritmo de aprendizado de máquina irá lhe dizer o <u><b>quão similar</b></u> o filme que você chutou é do filme secreto. Este algoritmo foi treinado em um grande conjunto de <i>tags</i> que milhares de usuários atribuíram aos filmes. As tags passaram por uma filtragem para remover algumas tags sem sentido ou que representam opiniões subjetivas dos usuários, porém pode ser que alguma tag ou outra tenha sobrivivido pela filtragem. Se você encontrar alguma tag deste tipo ou uma tag inapropriada, pode submeter um feedback pelo menu e ela será removida o quanto antes.
             </Text>
         }
 

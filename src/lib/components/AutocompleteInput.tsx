@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { Input, Flex, Text, Popover, PopoverAnchor, PopoverContent, PopoverBody, VStack, Box, StackDivider, Spinner, HStack, Button, Progress, ProgressLabel, Stack, useColorMode } from '@chakra-ui/react';
+import { Input, Flex, Text, Popover, PopoverAnchor, PopoverContent, PopoverBody, VStack, Box, StackDivider, Spinner, HStack, Button, Progress, ProgressLabel, Stack, useColorMode, useToast } from '@chakra-ui/react';
 //import { getVectorsFromData } from '../utils';
 
 import { notFound } from 'next/navigation'
@@ -70,6 +70,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
     similarity:number
   }[]>([]);
   const [mostSimilar, setMostSimilar] = useState<number>(0);
+  const toast = useToast();
   const { colorMode, toggleColorMode } = useColorMode();
 
   function increaseCorrespondingColor(val:number) {
@@ -101,13 +102,6 @@ function AutocompleteInput( props:AutocompleteProps ) {
         props.finishOpen(true); // finishing
     }, 1000);
     props.setCanGiveUp(false);
-  }
-
-  function alreadyGuessed(movieTitle:string) {
-    for (let i = 0; i < similarities.length; i++) {
-        if (similarities[i].word == movieTitle) return true;
-    }
-    return false;
   }
 
   useEffect(() => {
@@ -164,7 +158,13 @@ function AutocompleteInput( props:AutocompleteProps ) {
                 } catch(e) {
                     //TODO: DISPLAY ERROR MESSAGE
                     console.log((e as Error).message);
-                    return notFound();
+                    toast({
+                        title: 'Perdão! Algum erro desconhecido aconteceu.',
+                        description: 'Você pode reportar este erro enviando um feedback pelo menu.',
+                        status: 'error',
+                        isClosable: true,
+                        duration: 4000
+                    })
                 }
             }
             setIsLoading(false);
@@ -241,7 +241,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
   useEffect(() => {
     //console.log('guess changed', guess, allWords, currWordData)
     if (guess && allWords && currWordData) {
-        //console.log('checking guess');
+        console.log('checking guess');
         let guessData = binarySearch(allWords, guess);
         //@ts-ignore
         let sim = Math.abs((similarity(currWordData.vector, guessData.vector)*100));
@@ -255,7 +255,10 @@ function AutocompleteInput( props:AutocompleteProps ) {
             word: guessData.word,
             similarity: sim,
         }
-        if (guessData !== -1 && !alreadyGuessed(newGuess.word)) {
+        let contains = similarities.some(elem => {
+            return newGuess.word == elem.word;
+        })
+        if (guessData !== -1 && !contains) {
             const similarityArray = [...similarities, newGuess].sort((a, b) => {
                 if (a.similarity < b.similarity) return 1;
                 if (a.similarity > b.similarity) return -1;
@@ -268,7 +271,13 @@ function AutocompleteInput( props:AutocompleteProps ) {
         } else {
             //TODO: else SHOW ERROR MESSAGE
             //throw Error('Something went wrong and we don\'t know what :(');
-            return notFound();
+            toast({
+                title: 'Filme já escolhido!',
+                description: 'Você já chutou esse filme ou algum erro aconteceu.',
+                status: 'error',
+                isClosable: true,
+                duration: 4000
+            })
         }
     }
   }, [guess]);
