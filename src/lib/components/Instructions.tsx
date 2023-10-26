@@ -28,21 +28,21 @@ function Instructions() {
 
         {currInstr === 2 &&
             <Text marginY={3}>
-                Um algoritmo de aprendizado de máquina irá lhe dizer o <u><b>quão similar</b></u> o filme que você chutou é do filme secreto. Este algoritmo foi treinado em um grande conjunto de <i>tags</i> que milhares de usuários atribuíram aos filmes. Às vezes, o tempo de carregamento do jogo pode ser um pouco demorado pois é necessário carregar todos estes dados.
+                Um algoritmo de aprendizado de máquina irá lhe dizer o <u><b>quão similar</b></u> o filme que você chutou é do filme secreto. Este algoritmo foi treinado em um grande conjunto de <i>tags</i> que milhares de usuários atribuíram aos filmes. As tags passaram por uma filtragem para remover tags sem sentido ou que representam opiniões subjetivas dos usuários, porém pode ser que alguma tag ou outra sobreviveram pela filtragem. Se você encontrar alguma tag deste tipo ou uma tag inapropriada, pode submeter um feedback pelo menu e ela será removida o quanto antes.
             </Text>
         }
 
         {currInstr === 3 &&
             <Text marginY={3}>
                 <b><u>Obs.<sup>1</sup></u>: </b> O conjunto de dados contém filmes lançados <u><b>até 2018 e alguns de 2019</b></u>, portanto a busca nunca irá encontrar um filme lançados após estes anos. Além disso, o filme secreto sempre será um filme lançado até estas datas.
-                Ah, e alguns filmes pouquíssimo conhecidos foram removidos do conjunto de dados.
+                Ah, e alguns filmes pouquíssimo conhecidos foram removidos do conjunto de dados. O desenvolvedor do jogo está trabalhando para aumentar a quantidade de filmes no banco de dados.
             </Text>
         }
 
         {currInstr === 4 &&
             <Text marginY={3}>
                 <b><u>Obs.<sup>2</sup></u>: </b> Se você <u><b>pesquisar por algum filme que começa com um artigo</b></u> como, por exemplo, 'O Diabo Veste Prada', ele pode não aparecer pois é possível que o filme esteja registrado no banco de dados como 'Diabo Veste Prata, O'.
-                Então, se você procurar por um filme assim e ele não aparecer, <u><b>tente novamente omitindo o artigo do início</b></u>.
+                Então, se você procurar por um filme assim e ele não aparecer, <u><b>tente novamente omitindo o artigo do início</b></u>. Outra dica é buscar por partes do título e não escrever o título inteiro.
             </Text>
         }
 
