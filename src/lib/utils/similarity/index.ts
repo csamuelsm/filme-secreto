@@ -73,7 +73,7 @@ const forbidden_words:string[] = ['',
 'pretentious', 'previsible', 'bad acting', 'overestimated', 'overvalue', 'predictable', 'foreseeable',
 'cocky', 'poor plot', 'overrated', 'bad writing', 'poor dialogue', 'racial victimism',
 'good acting', 'great acting', 'atmospheric', 'acting', 'dvix', 'divx', 'ending', 'have',
-'having', 'want', 'wish', 'wating'];
+'having', 'want', 'wish', 'waiting'];
 
 export async function getMostSimilarTags(target:string, guess:string, tagData:TagsData[]) {
     console.log('getMostSimilarTags started')

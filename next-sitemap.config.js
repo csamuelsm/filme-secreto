@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const NextSitemapConfig = {
-  siteUrl: "https://filme-secreto.vercel.app/",
+  siteUrl: "https://filme-secreto.com.br/",
   generateRobotsTxt: true,
 };
 
