@@ -50,12 +50,30 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         <Providers>
           <Layout>{children}</Layout>
           <Analytics />
+          {/*Google Adsense Tags Below*/}
           <Script
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1009095463777730"
             id="adsbygoogle-init"
             strategy='afterInteractive'
             crossOrigin='anonymous'>
+          </Script>
+          {/*Google Analytics Tags Below*/}
+          <Script
+            strategy='lazyOnload'
+            src="https://www.googletagmanager.com/gtag/js?id=G-D862Z31EYJ"
+          ></Script>
+          <Script
+            strategy='lazyOnload'
+          >
+            {
+              `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-D862Z31EYJ');
+              `
+            }
           </Script>
         </Providers>
       </body>
