@@ -89,7 +89,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
         confettiNumber: 100,
         confettiRadius: 4
     })
-    if (!lastPlayedToday()) {
+    if (!props.oldGame && !lastPlayedToday()) {
         let today = new Date();
         setLastPlayed(today);
     }

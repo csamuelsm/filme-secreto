@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { Text, Modal, ModalOverlay, ModalContent,
         ModalHeader, ModalCloseButton, ModalBody,
         ModalFooter, Button, Accordion, AccordionButton, AccordionIcon,
@@ -22,6 +22,30 @@ type ModalProps = {
 }
 
 function FinishModal(props:ModalProps) {
+
+    const banner = useRef<HTMLDivElement>(null);
+
+    const atOptions = {
+		key : '1f18ff67db1c8e6b26bd6776911d0812',
+		format : 'iframe',
+		height : 50,
+		width : 320,
+		params : {}
+	};
+
+    useEffect(() => {
+        if (banner.current && !banner.current.firstChild) {
+          const conf = document.createElement('script');
+          const script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = `//www.highperformancedformats.com/${atOptions.key}/invoke.js`;
+          conf.innerHTML = `atOptions = ${JSON.stringify(atOptions)}`;
+    
+          banner.current.append(conf);
+          banner.current.append(script);
+        }
+    }, [banner]);
+
   return (
     <Modal onClose={() => props.setOpen(false)} size='sm' isOpen={props.open} isCentered>
         <ModalOverlay />
@@ -97,8 +121,13 @@ function FinishModal(props:ModalProps) {
                 {/*<Divider />*/}
 
                 <Text marginY={3} fontSize="sm">
-                    Se você gostou deste jogo, por favor considere fazer uma <b>doação de qualquer valor para apoiar sua manutenção.</b>
+                    Se você gostou deste jogo, por favor considere fazer uma <b>doação de qualquer valor</b> ou <b>clicar no anúncio abaixo</b> para apoiar sua manutenção.
                 </Text>
+                <div ref={banner} style={{
+                    marginTop: '3px',
+                    marginBottom: '3px'
+                }}>
+                </div>
                 <Text marginY={3} fontSize="sm">
                     Compartilhe com seus amigos no <b>Twitter, Telegram, WhatsApp, Facebook</b> e outras redes sociais no botão abaixo.
                 </Text>

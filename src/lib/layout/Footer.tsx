@@ -30,7 +30,7 @@ const Footer = ( props:FooterProps ) => {
       banner.current.append(conf);
       banner.current.append(script);
     }
-  }, [banner]) 
+  }, [banner]);
 
   return (
     <Flex as="footer" width="full" justifyContent="center" alignItems='center' display='flex' flexDirection='column' textAlign='center'>
