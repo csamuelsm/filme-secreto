@@ -128,9 +128,6 @@ function FinishModal(props:ModalProps) {
                     marginBottom: '3px'
                 }}>
                 </div>
-                <Text marginY={3} fontSize="sm">
-                    Compartilhe com seus amigos no <b>Twitter, Telegram, WhatsApp, Facebook</b> e outras redes sociais no botão abaixo.
-                </Text>
             </ModalBody>
             <ModalFooter>
                 <RWebShare
