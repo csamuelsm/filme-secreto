@@ -10,6 +10,7 @@ const Meta = () => {
       <meta name="format-detection" content="telephone=no" />
       <meta name="mobile-web-app-capable" content="yes" />
       <meta name="theme-color" content="#FFFFFF" />
+      <meta name="monetag" content="f49237acd57f80362fd971e9baeb2d0f" />
 
       <link rel="shortcut icon" href="/favicon.ico" />
 
