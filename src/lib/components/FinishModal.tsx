@@ -99,11 +99,12 @@ function FinishModal(props:ModalProps) {
                 {/*<Divider />*/}
 
                 <Text marginY={3} fontSize="sm">
-                    Se você gostou deste jogo, por favor considere fazer uma <b>doação de qualquer valor</b> ou <b>clicar no anúncio abaixo</b> para apoiar sua manutenção.
+                    Se você gostou deste jogo, por favor considere fazer uma <b>doação de qualquer valor</b> para apoiar sua manutenção.
                 </Text>
-                <Flex w='100%' flexDirection='row' alignItems='center' justifyContent='center'>
-                    <AdsTerra />
-                </Flex>
+
+                <Text marginY={3} fontSize="sm">
+                    Compartilhe o jogo com seus amigos no <b>Twitter, Facebook, WhatsApp, Telegram</b> e outras redes no botão abaixo.
+                </Text>
             </ModalBody>
             <ModalFooter>
                 <RWebShare
