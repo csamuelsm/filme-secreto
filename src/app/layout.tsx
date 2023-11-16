@@ -59,7 +59,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
             crossOrigin='anonymous'>
           </Script>
           {/*Google Analytics Tags Below*/}
-          <Script
+          {/*<Script
             strategy='lazyOnload'
             src="https://www.googletagmanager.com/gtag/js?id=G-D862Z31EYJ"
           ></Script>
@@ -74,7 +74,8 @@ const RootLayout = ({ children }: RootLayoutProps) => {
               gtag('config', 'G-D862Z31EYJ');
               `
             }
-          </Script>
+          </Script>*/}
+          <Script strategy='lazyOnload' src="https://alwingulla.com/88/tag.min.js" data-zone="22052" async data-cfasync="false"></Script>
         </Providers>
       </body>
     </html>
