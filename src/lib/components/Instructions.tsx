@@ -28,30 +28,26 @@ function Instructions() {
 
         {currInstr === 2 &&
             <Text marginY={3}>
-                Um algoritmo de aprendizado de máquina irá lhe dizer o <u><b>quão similar</b></u> o filme que você chutou é do filme secreto. Este algoritmo foi treinado em um grande conjunto de <i>tags</i> que milhares de usuários atribuíram aos filmes. As tags passaram por uma filtragem para remover algumas tags sem sentido ou que representam opiniões subjetivas dos usuários, porém pode ser que alguma tag ou outra tenha sobrivivido pela filtragem. Se você encontrar alguma tag deste tipo ou uma tag inapropriada, pode submeter um feedback pelo menu e ela será removida o quanto antes.
+                Um algoritmo de aprendizado de máquina <u><b>avalia a semelhança entre o filme chutado e o filme secreto</b></u>, treinado com base em <u><b>tags atribuídas por usuários</b></u> a filmes. As tags passaram por filtragem para remover conteúdo sem sentido ou subjetivo, mas feedbacks sobre tags inadequadas são bem-vindos para remoção rápida pelo menu.
             </Text>
         }
 
         {currInstr === 3 &&
             <Text marginY={3}>
-                <b><u>Obs.<sup>1</sup></u>: </b> O conjunto de dados contém filmes lançados <u><b>até 2018 e alguns de 2019</b></u>, portanto a busca nunca irá encontrar um filme lançados após estes anos. Além disso, o filme secreto sempre será um filme lançado até estas datas.
-                Ah, e alguns filmes pouquíssimo conhecidos foram removidos do conjunto de dados. O desenvolvedor do jogo está trabalhando para aumentar a quantidade de filmes no banco de dados.
+                <b><u>Obs.</u>: </b> O conjunto de dados inclui <u><b>filmes lançados até 2018 e alguns de 2019</b></u>. A busca não identificará filmes lançados após esses anos, e o filme secreto seguirá essa limitação. Filmes pouco conhecidos foram excluídos, e o desenvolvedor está ampliando o banco de dados.
             </Text>
         }
 
         {currInstr === 4 &&
             <Text marginY={3}>
-                <b><u>Obs.<sup>2</sup></u>: </b> Se você <u><b>pesquisar por algum filme que começa com um artigo</b></u> como, por exemplo, 'O Diabo Veste Prada', ele pode não aparecer pois é possível que o filme esteja registrado no banco de dados como 'Diabo Veste Prata, O'.
-                Então, se você procurar por um filme assim e ele não aparecer, <u><b>tente novamente omitindo o artigo do início</b></u>. Outra dica é buscar por partes do título e não escrever o título inteiro.
+                <b><u>Dica</u>: </b> Ao buscar filmes, considere que títulos com artigos podem estar <u><b>registrados de forma diferente no banco de dados</b></u>. Por exemplo, "O Diabo Veste Prada" pode ser listado como "Diabo Veste Prada, O". Caso não encontre um filme, <u><b>tente novamente omitindo o artigo inicial</b></u>. Além disso, é útil <u><b>buscar por partes do título</b></u> em vez de digitar o título completo.
             </Text>
         }
 
         {currInstr === 5 &&
             <>
                 <Text marginY={3}>
-                    Você pode desistir a qualquer momento e outro jogo ficará disponível no dia seguinte. Enquanto espera, você pode jogar os jogos antigos, porém eles não contam para a contagem de vitórias seguidas.
-                    Jogar este jogo em grupo também pode ser muito divertido, por exemplo com uma pessoa do grupo chutando um filme em cada rodada até alguém acertar.
-                    Finalmente e o mais importante, <u><b>divirta-se e bom jogo!</b></u>
+                    Você pode <b>desistir a qualquer momento</b>, e um novo jogo estará disponível no dia seguinte. <b>Jogos antigos não contam</b> para a contagem de vitórias seguidas. Jogar em grupo é uma opção divertida, onde cada pessoa do grupo pode chutar um filme por rodada. O principal objetivo é se divertir. <u><b>Bom jogo!</b></u>
                 </Text>
             </>
         }

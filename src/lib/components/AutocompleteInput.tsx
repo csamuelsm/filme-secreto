@@ -243,6 +243,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
     if (guess && allWords && currWordData) {
         console.log('checking guess');
         let guessData = binarySearch(allWords, guess);
+        //console.log('guessData', guessData)
         //@ts-ignore
         let sim = Math.abs((similarity(currWordData.vector, guessData.vector)*100));
         if (sim > 99.999) {
@@ -287,7 +288,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
         flexDirection="column"
         w="100%"
         justifyContent={status === null ? "flex-start" : "center"}
-        minHeight="70vh"
+        minHeight="50vh"
         >
         {status != null &&
             <VStack alignItems="center" justifyContent="center" textAlign="center">
@@ -340,7 +341,9 @@ function AutocompleteInput( props:AutocompleteProps ) {
         </>
         }
         {similarities.length == 0 &&
-            <Instructions />
+            <>
+                <Instructions />
+            </>
         }
         <Stack spacing={2} marginY={5} w="100%">
             {similarities.map((el) => {
