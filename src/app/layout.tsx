@@ -75,7 +75,6 @@ const RootLayout = ({ children }: RootLayoutProps) => {
               `
             }
           </Script>*/}
-          <Script strategy='lazyOnload' src="https://alwingulla.com/88/tag.min.js" data-zone="22052" async data-cfasync="false"></Script>
         </Providers>
       </body>
     </html>
