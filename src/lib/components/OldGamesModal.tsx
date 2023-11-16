@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, Grid, GridItem, Link } from '@chakra-ui/react'
 import { FaSignOutAlt } from 'react-icons/fa';
 import { setLastPlayed, increaseNumberOfGames, resetStreak } from '../utils/cookies';
+import { startDate } from '../utils/const';
 
 type ModalProps = {
     open: boolean,
@@ -11,20 +12,27 @@ type ModalProps = {
 function OldGamesModal(props:ModalProps) {
 
   const [number, setNumber] = useState<number>(0);
-  const [games, setGames] = useState<string[]>([]);
+  //const [games, setGames] = useState<string[]>([]);
   let today = new Date();
   let currGameDate = new Date();
 
   useEffect(() => {
     async function getOldGames() {
-        let res = await fetch('/api/get_old_games');
-        let json = await res.json();
-        if (json.games) {
-            setGames(json.games);
+        //let res = await fetch('/api/get_old_games');
+        //let json = await res.json();
+
+        const today = new Date();
+        let diffMs = today.getTime() - startDate.getTime();
+        let diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+        setNumber(diffDays);
+
+        /*if (json.games) {
+            //setGames(json.games);
             setNumber(json.number);
         } else {
             throw Error('Couldn\'t get the old games.');
-        }
+        }*/
     }
 
     getOldGames();
@@ -43,7 +51,7 @@ function OldGamesModal(props:ModalProps) {
                     Clique no jogo do dia que você quer jogar:
                 </Text>
                 <Grid templateColumns='repeat(2, 1fr)' gap={3} marginY={3}>
-                    {games.map((el, idx) => {
+                    {[...Array(number).keys()].map((el, idx) => {
                         currGameDate.setDate(today.getDate() - (idx + 1));
                         return (
                             <GridItem w='100%'>
