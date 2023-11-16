@@ -38,7 +38,7 @@ function FinishModal(props:ModalProps) {
           const conf = document.createElement('script');
           const script = document.createElement('script');
           script.type = 'text/javascript';
-          script.src = `//www.highperformancedformats.com/${atOptions.key}/invoke.js`;
+          script.src = `//www.highcpmcreativeformat.com/1f18ff67db1c8e6b26bd6776911d0812/invoke.js`;
           conf.innerHTML = `atOptions = ${JSON.stringify(atOptions)}`;
     
           banner.current.append(conf);
