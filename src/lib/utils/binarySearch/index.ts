@@ -3,10 +3,17 @@ type wordObjectType = {
     vector: number[],
 }
 
+const findFirstDiff = (str1: string, str2: string) =>
+  str2[[...str1].findIndex((el, index) => el !== str2[index])];
+
 export default function binarySearch(wordsObject:wordObjectType[], word:string) {
+    //console.log('looking for word', word);
+    //console.log('wordsObject length', wordsObject.length);
     let start = 0;
     let end = wordsObject.length - 1;
-    return binSearchUtil(wordsObject, word, start, end);
+    let res = binSearchUtil(wordsObject, word, start, end);
+    //console.log('res', res);
+    return res;
 }
 
 function binSearchUtil(wordsObject:wordObjectType[], word:string, start:number, end:number) {
@@ -14,7 +21,10 @@ function binSearchUtil(wordsObject:wordObjectType[], word:string, start:number, 
 
     let mid = Math.floor((start + end)/2);
 
-    if (wordsObject[mid].word === word) return wordsObject[mid];
+    //console.log(mid, wordsObject[mid].word)
+
+    if (wordsObject[mid].word.trim() === word.trim()) return wordsObject[mid];
+    //else console.log(wordsObject[mid].word.trim() === word.trim(), wordsObject[mid].word, '!===', word, 'at: ', findFirstDiff(word, wordsObject[mid].word));
 
     if (wordsObject[mid].word > word)
         return binSearchUtil(wordsObject, word, start, mid-1);

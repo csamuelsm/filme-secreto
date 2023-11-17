@@ -16,6 +16,8 @@ import JSConfetti from 'js-confetti';
 import { increaseNumberOfGames, increaseNumberOfVictories, setLastPlayed, lastPlayedToday, increaseStreak, alreadyPlayedThisGame, addGamePlayed } from '../utils/cookies';
 import { toTitleCase, normalizeString, reducedNormalize } from '../utils/stringNormalization';
 
+import { motion } from 'framer-motion';
+
 var similarity = require( 'compute-cosine-similarity' );
 
 type AutocompleteProps = {
@@ -87,7 +89,8 @@ function AutocompleteInput( props:AutocompleteProps ) {
     const jsConfetti = new JSConfetti();
     jsConfetti.addConfetti({
         confettiNumber: 100,
-        confettiRadius: 4
+        confettiRadius: 4,
+        emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸']
     })
     if (!props.oldGame && !lastPlayedToday()) {
         let today = new Date();
@@ -244,6 +247,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
         console.log('checking guess');
         let guessData = binarySearch(allWords, guess);
         //console.log('guessData', guessData)
+        //console.log('allWords: ', allWords)
         //@ts-ignore
         let sim = Math.abs((similarity(currWordData.vector, guessData.vector)*100));
         if (sim > 99.999) {
@@ -349,26 +353,35 @@ function AutocompleteInput( props:AutocompleteProps ) {
             {similarities.map((el) => {
                 return (
                     <Box key={el.word}>
-                    <Progress value={transformValue(el.similarity, mostSimilar)}
-                        colorScheme={getColorScheme(transformValue(el.similarity, mostSimilar))}
-                        height={transformValue(el.similarity, mostSimilar) > 99.999 ? 37 : 30}
-                        borderRadius={5}
-                        border={el.word === guess ? "2px solid" : "none"}
-                        borderColor={el.word === guess ? "blue.500" : "none"}
-                        marginBottom={0}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                                duration: 0.23,
+                                ease: [0, 0.71, 0.2, 1.01]
+                            }}
                         >
-                        <ProgressLabel color={colorMode == 'dark' ? "gray.900" : "white"}
-                            fontSize="sm" textAlign="left" marginX={3} >{el.word}</ProgressLabel>
-                    </Progress>
-                    {transformValue(el.similarity, mostSimilar) >= 99.999 &&
-                        <Text fontSize="xs" marginTop={0}><b>Você acertou!</b></Text>
-                    }
-                    {transformValue(el.similarity, mostSimilar) >= 25 && transformValue(el.similarity, mostSimilar) < 99.999 &&
-                        <SimilarTags target={props.word} guess={el.word} />
-                    }
-                    {transformValue(el.similarity, mostSimilar) < 25 &&
-                        <Text fontSize="xs" marginTop={0} color='red.500'>Similaridade muito pequena para obter tags.</Text>
-                    }
+                            <Progress value={transformValue(el.similarity, mostSimilar)}
+                                colorScheme={getColorScheme(transformValue(el.similarity, mostSimilar))}
+                                height={transformValue(el.similarity, mostSimilar) > 99.999 ? 37 : 30}
+                                borderRadius={5}
+                                border={el.word.trim() === guess?.trim() ? "2px solid" : "none"}
+                                borderColor={el.word.trim() === guess?.trim() ? "blue.500" : "none"}
+                                marginBottom={0}
+                                >
+                                <ProgressLabel color={colorMode == 'dark' ? "gray.900" : "white"}
+                                    fontSize="sm" textAlign="left" marginX={3} >{el.word}</ProgressLabel>
+                            </Progress>
+                            {transformValue(el.similarity, mostSimilar) >= 99.999 &&
+                                <Text fontSize="xs" marginTop={0}><b>Você acertou!</b></Text>
+                            }
+                            {transformValue(el.similarity, mostSimilar) >= 25 && transformValue(el.similarity, mostSimilar) < 99.999 &&
+                                <SimilarTags target={props.word} guess={el.word} />
+                            }
+                            {transformValue(el.similarity, mostSimilar) < 25 &&
+                                <Text fontSize="xs" marginTop={0} color='red.500'>Similaridade muito pequena para obter tags.</Text>
+                            }
+                        </motion.div>
                     </Box>
                 )
             })}
