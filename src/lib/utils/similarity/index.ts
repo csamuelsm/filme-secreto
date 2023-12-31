@@ -1,6 +1,16 @@
+import path from 'path';
+import { promises as fs } from 'fs';
+
+var similarity = require( 'compute-cosine-similarity' );
+
 type TagsData = {
     title:string,
     tags:string[]
+}
+
+type wordObjectType = {
+    word: string,
+    vector: number[],
 }
 
 const translate = require('translate-google');
@@ -76,7 +86,7 @@ const forbidden_words:string[] = ['',
 'having', 'want', 'wish', 'waiting', 'itaege', 'etaege', 'tumeys dvds', 'exclusive', 'chick flick', 'afi no emotions'];
 
 export async function getMostSimilarTags(target:string, guess:string, tagData:TagsData[]) {
-    console.log('getMostSimilarTags started')
+    //console.log('getMostSimilarTags started')
     let target_tags:string[] = [];
     let guess_tags:string[] = [];
     let most_similar:{[tag:string]:number} = {};
@@ -114,5 +124,87 @@ export async function getMostSimilarTags(target:string, guess:string, tagData:Ta
 
     let values = await Promise.all(keys_unique.map((key) => traduzir(key)))
     //console.log('similarity-values', values);
+    return values;
+}
+
+function top5search(wordsObject:wordObjectType[], word:string) {
+    let guessVector:number[] = [];
+    for (let i = 0; i < wordsObject.length; i++) {
+        if (wordsObject[i].word === word) {
+            guessVector = wordsObject[i].vector;
+        }
+    }
+
+    if (guessVector.length == 0) return [];
+
+    let sims:{[movie:string]:number} = {};
+    
+    wordsObject.forEach(item => {
+        sims[item.word] = similarity(item.vector, guessVector);
+    });
+
+    var items = Object.keys(sims).map(function(key) {
+        return [key, sims[key]];
+    })
+
+    items.sort(function(first:(string|number)[], second:(string|number)[]){
+        //@ts-ignore
+        return second[1] - first[1];
+    })
+
+    return items.slice(1, 6);
+}    
+
+export async function getHints(guess:string) {
+    const file = '/sortedW2V.json';
+    const fileDirectory = path.join(process.cwd(), 'public');
+
+    const data = await fs.readFile(fileDirectory + file, 'utf8');
+    const w2vdata = JSON.parse(data);
+
+    let top5 = top5search(w2vdata, guess);
+    let movieNames = top5.map(el => {
+        return el[0];
+    })
+
+    const tagFile = '/tags.json';
+    const tagFileDirectory = path.join(process.cwd(), 'public');
+
+    const fileContent = await fs.readFile(tagFileDirectory + tagFile);
+    const tagList:TagsData[] = await JSON.parse(fileContent.toString());
+
+    let tags:{[tagName:string]:number} = {};
+
+    for (let i = 0; i < tagList.length; i++) {
+        if (movieNames.includes(tagList[i].title)) {
+            for (let j = 0; j < tagList[i].tags.length; j++) {
+                if (Object.keys(tags).includes(tagList[i].tags[j])) {
+                    tags[tagList[i].tags[j]] += 1;
+                } else {
+                    tags[tagList[i].tags[j]] = 1;
+                }
+            }
+        }
+    }
+
+    var top5tags = Object.keys(tags).map(function(key) {
+        return [key, tags[key]];
+    });
+
+    top5tags = top5tags.filter(el => {
+        return !forbidden_words.includes(String(el[0]));
+    })
+
+    top5tags.sort(function(first:(string|number)[], second:(string|number)[]) {
+        //@ts-ignore
+        return second[1] - first[1];
+    });
+
+    let only5 = top5tags.slice(0, 3).map(el => {
+        return el[0];
+    });
+
+    let values = await Promise.all(only5.map((key) => traduzir(String(key))));
+
     return values;
 }

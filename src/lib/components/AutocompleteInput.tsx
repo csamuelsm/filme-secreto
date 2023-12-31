@@ -11,6 +11,7 @@ import binarySearch from '../utils/binarySearch';
 import { getVectorsFromData } from '../utils';
 import Instructions from './Instructions';
 import SimilarTags from './SimilarTags';
+import Hints from './Hints';
 import JSConfetti from 'js-confetti';
 
 import { increaseNumberOfGames, increaseNumberOfVictories, setLastPlayed, lastPlayedToday, increaseStreak, alreadyPlayedThisGame, addGamePlayed } from '../utils/cookies';
@@ -342,6 +343,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
                     </PopoverBody>
                 </PopoverContent>
             </Popover>
+            <Hints target={props.word} />
         </>
         }
         {similarities.length == 0 &&
