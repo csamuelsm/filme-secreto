@@ -20,7 +20,7 @@ function DonationRequest(props:FooterProps) {
 
             <GridItem colSpan={2} color='white' w='100%' textAlign={['center', null, null, 'left']}>
                 <Text fontSize='xs'>
-                    Filme Secreto é um <u><b>jogo gratuito sem anúncios</b></u>, e <u><b>pretendo mantê-lo assim</b></u>. No entanto, mantê-lo funcionando requer tempo e dinheiro. Em mais de um mês de jogo, recebi apenas <u><b>duas doações de R$1,00</b></u>. Portanto, se você gosta do jogo, gostaria de pedir sua ajuda para doar qualquer quantia para contribuir com a manutenção do Filme Secreto.
+                    Filme Secreto é um <u><b>jogo gratuito sem anúncios</b></u>, e <u><b>pretendo mantê-lo assim</b></u>. No entanto, mantê-lo funcionando requer tempo e dinheiro. Portanto, se você gosta do jogo, gostaria de pedir sua ajuda para doar qualquer quantia para contribuir com a manutenção do Filme Secreto.
                 </Text>
             </GridItem>
 
