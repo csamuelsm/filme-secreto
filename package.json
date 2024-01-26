@@ -34,6 +34,8 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@jayrbolton/suffix-tree": "^0.0.1",
+    "@langchain/community": "^0.0.20",
+    "@langchain/openai": "^0.0.12",
     "@vercel/analytics": "^1.1.1",
     "ahocorasick": "^1.0.2",
     "compute-cosine-similarity": "^1.1.0",

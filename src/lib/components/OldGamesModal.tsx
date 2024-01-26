@@ -3,6 +3,7 @@ import { Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton,
 import { FaSignOutAlt } from 'react-icons/fa';
 import { setLastPlayed, increaseNumberOfGames, resetStreak } from '../utils/cookies';
 import { startDate } from '../utils/const';
+import { MdMovieFilter } from 'react-icons/md';
 
 type ModalProps = {
     open: boolean,
@@ -59,7 +60,7 @@ function OldGamesModal(props:ModalProps) {
                                     {currGameDate.toLocaleDateString('pt-BR')}
                                 </Text>
                                 <Link href={`/old/${number-idx}`}>
-                                    <Button>Jogo {'#'}{number-idx}</Button>
+                                    <Button leftIcon={<MdMovieFilter />}>Jogo {'#'}{number-idx}</Button>
                                 </Link>
                             </GridItem>
                         )

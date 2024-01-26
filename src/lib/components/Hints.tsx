@@ -1,5 +1,6 @@
-import { Badge, Button, HStack, Text, Wrap, WrapItem } from '@chakra-ui/react'
+import { Badge, Button, HStack, Text, Tooltip, Wrap, WrapItem } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
+import { FaQuestionCircle } from "react-icons/fa";
 
 type HintsProps = {
     target:string
@@ -38,12 +39,14 @@ function Hints(props:HintsProps) {
   return (
     <Wrap gap={3} marginY={2} align='center'>
         <WrapItem>
-            <Button colorScheme='purple' size='xs' isDisabled={!(hintNumber < 3) || loading} onClick={() => {
-                let currHintNumber = hintNumber;
-                setHintNumber(hintNumber+1);
-            }}>
-                Pedir dica ({hintNumber}/3)
-            </Button>
+            <Tooltip hasArrow label='Descubra uma tag'>
+                <Button colorScheme='purple' size='sm' isDisabled={!(hintNumber < 3) || loading} onClick={() => {
+                    let currHintNumber = hintNumber;
+                    setHintNumber(hintNumber+1);
+                }} leftIcon={<FaQuestionCircle/>}>
+                    Dica ({hintNumber}/3)
+                </Button>
+            </Tooltip>
         </WrapItem>
         {
             hints.map((el, idx) => {

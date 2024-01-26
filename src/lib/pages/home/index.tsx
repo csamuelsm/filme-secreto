@@ -72,7 +72,7 @@ export default function Home () {
         />
 
         <AutocompleteInput word={movie} finishOpen={setFinishModal} setCanGiveUp={setCanGiveUp} gameNumber={gameNumber} oldGame={false}
-        setBlue={setBlue} setGreen={setGreen} setYellow={setYellow} setRed={setRed} blue={blue} green={green} yellow={yellow} red={red}
+          setBlue={setBlue} setGreen={setGreen} setYellow={setYellow} setRed={setRed} blue={blue} green={green} yellow={yellow} red={red}
         />
       </>
       }

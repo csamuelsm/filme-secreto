@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { Input, Flex, Text, Popover, PopoverAnchor, PopoverContent, PopoverBody, VStack, Box, StackDivider, Spinner, HStack, Button, Progress, ProgressLabel, Stack, useColorMode, useToast } from '@chakra-ui/react';
+import { Input, Flex, Text, Popover, PopoverAnchor, PopoverContent, PopoverBody, VStack, Box, StackDivider, Spinner, HStack, Button, Progress, ProgressLabel, Stack, useColorMode, useToast, Drawer, DrawerBody, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, Badge } from '@chakra-ui/react';
 //import { getVectorsFromData } from '../utils';
 
 import { notFound } from 'next/navigation'
@@ -75,6 +75,8 @@ function AutocompleteInput( props:AutocompleteProps ) {
   const [mostSimilar, setMostSimilar] = useState<number>(0);
   const toast = useToast();
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const [allTags, setAllTags] = useState<string[]>([]);
 
   function increaseCorrespondingColor(val:number) {
     let color = getColorScheme(val);
@@ -351,10 +353,13 @@ function AutocompleteInput( props:AutocompleteProps ) {
                 <Instructions />
             </>
         }
-        <Stack spacing={2} marginY={5} w="100%">
+        <Stack spacing={1} marginY={5} w="100%">
             {similarities.map((el) => {
                 return (
-                    <Box key={el.word}>
+                    <Box key={el.word} p={2} 
+                        border={el.word.trim() === guess?.trim() ? "2px dashed" : "none"}
+                        borderColor={el.word.trim() === guess?.trim() ? "blue.500" : "gray.500"}
+                        borderRadius={10}>
                         <motion.div
                             initial={{ opacity: 0, scale: 0.5 }}
                             animate={{ opacity: 1, scale: 1 }}
@@ -363,22 +368,24 @@ function AutocompleteInput( props:AutocompleteProps ) {
                                 ease: [0, 0.71, 0.2, 1.01]
                             }}
                         >
+                            <Text><b>{el.word}</b></Text>
                             <Progress value={transformValue(el.similarity, mostSimilar)}
                                 colorScheme={getColorScheme(transformValue(el.similarity, mostSimilar))}
-                                height={transformValue(el.similarity, mostSimilar) > 99.999 ? 37 : 30}
-                                borderRadius={5}
-                                border={el.word.trim() === guess?.trim() ? "2px solid" : "none"}
-                                borderColor={el.word.trim() === guess?.trim() ? "blue.500" : "none"}
+                                //height={transformValue(el.similarity, mostSimilar) > 99.999 ? 37 : 30}
+                                size='sm'
+                                borderRadius={2}
+                                //border={el.word.trim() === guess?.trim() ? "2px solid" : "none"}
+                                //borderColor={el.word.trim() === guess?.trim() ? "blue.500" : "none"}
                                 marginBottom={0}
                                 >
-                                <ProgressLabel color={colorMode == 'dark' ? "gray.900" : "white"}
-                                    fontSize="sm" textAlign="left" marginX={3} >{el.word}</ProgressLabel>
+                                {/*<ProgressLabel color={colorMode == 'dark' ? "gray.900" : "white"}
+                                    fontSize="sm" textAlign="left" marginX={3} >{el.word}</ProgressLabel>*/}
                             </Progress>
                             {transformValue(el.similarity, mostSimilar) >= 99.999 &&
                                 <Text fontSize="xs" marginTop={0}><b>Você acertou!</b></Text>
                             }
                             {transformValue(el.similarity, mostSimilar) >= 25 && transformValue(el.similarity, mostSimilar) < 99.999 &&
-                                <SimilarTags target={props.word} guess={el.word} />
+                                <SimilarTags target={props.word} guess={el.word} allTags={allTags} setAllTags={setAllTags} />
                             }
                             {transformValue(el.similarity, mostSimilar) < 25 &&
                                 <Text fontSize="xs" marginTop={0} color='red.500'>Similaridade muito pequena para obter tags.</Text>
@@ -388,6 +395,23 @@ function AutocompleteInput( props:AutocompleteProps ) {
                 )
             })}
         </Stack>
+
+        {/*<Drawer>
+            <DrawerOverlay />
+            <DrawerContent>
+                <DrawerCloseButton />
+                <DrawerHeader>Tags descobertas</DrawerHeader>
+                <DrawerBody>
+                    {
+                        allTags.map((el) => {
+                            return (
+                                <Badge colorScheme='purple'>{el}</Badge>
+                            )
+                        })
+                    }
+                </DrawerBody>
+            </DrawerContent>
+        </Drawer>*/}
     </Flex>
   )
 }

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, Spinner, Text } from '@chakra-ui/react';
+import { Badge, Flex, Spinner, Text, Wrap, WrapItem } from '@chakra-ui/react';
 
 type SimilarTagsProps = {
     target:string,
-    guess:string
+    guess:string,
+    allTags:string[],
+    setAllTags:React.Dispatch<React.SetStateAction<string[]>>
 }
 
 function SimilarTags(props:SimilarTagsProps) {
@@ -29,6 +31,14 @@ function SimilarTags(props:SimilarTagsProps) {
         //console.log(json);
         try {
             setTop(json.req);
+            let tags = props.allTags;
+            for (let i = 0; i < json.req.length; i++) {
+                if (!props.allTags.includes(json.req[i])) {
+                    tags.push(json.req[i]);
+                }
+            };
+            tags.sort();
+            props.setAllTags(tags);
             setIsLoading(false);
         } catch (e) {
             //throw Error('Couldn\'t get the Top tags');
@@ -46,16 +56,37 @@ function SimilarTags(props:SimilarTagsProps) {
         {isLoading &&
         <Flex flexDirection='row' alignItems='center'>
             <Spinner size='xs' marginRight={1} />
-            <Text fontSize="xs" marginTop={0}>Carregando tags mais similares...</Text>
+            <Text fontSize="xs" marginTop={0} color="grey.500">Carregando tags mais similares...</Text>
         </Flex>
         }
 
         {!isLoading && top && top.length > 0 &&
-            <Text fontSize="xs" marginTop={0}>Top tags similares: {top.join(', ')}</Text>
+            <Wrap gap={3} marginY={2} align='center'>
+                {/*<Text fontSize="xs" marginTop={0}>Top tags similares: */}
+                    {
+                        //top.join(', ')
+                        top.map((el, idx) => {
+                            return (
+                                <WrapItem>   
+                                    <Badge fontSize='xs' fontWeight='bold' colorScheme='purple'>
+                                        {idx + 1}. {el}
+                                    </Badge>
+                                </WrapItem>
+                            )
+                        })
+                    }
+                {/*</Text>*/}
+            </Wrap>
         }
 
         {!isLoading && top && top.length == 0 &&
-            <Text fontSize="xs" marginTop={0}>Nenhuma tag similar</Text>
+            <Wrap gap={3} marginY={2} align='center'>
+                <WrapItem>   
+                    <Badge fontSize='xs' fontWeight='bold' colorScheme='red'>
+                        Nenhuma tag similar
+                    </Badge>
+                </WrapItem>
+            </Wrap>
         }
 
         {error || (!isLoading && !top) &&
