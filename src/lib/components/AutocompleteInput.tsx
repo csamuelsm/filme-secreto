@@ -2,13 +2,13 @@ import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useSta
 import { Input, Flex, Text, Popover, PopoverAnchor, PopoverContent, PopoverBody, VStack, Box, StackDivider, Spinner, HStack, Button, Progress, ProgressLabel, Stack, useColorMode, useToast, Drawer, DrawerBody, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, Badge, Card, CardBody, Tooltip } from '@chakra-ui/react';
 //import { getVectorsFromData } from '../utils';
 
-import { notFound } from 'next/navigation'
+//import { notFound } from 'next/navigation'
 
-import { buildSearch } from '../utils/search.ts';
-import { SearchResult } from '../utils/search.ts';
+//import { buildSearch } from '../utils/search.ts';
+//import { SearchResult } from '../utils/search.ts';
 
 import binarySearch from '../utils/binarySearch';
-import { getVectorsFromData } from '../utils';
+//import { getVectorsFromData } from '../utils';
 import Instructions from './Instructions';
 import SimilarTags from './SimilarTags';
 import Hints from './Hints';
@@ -16,7 +16,7 @@ import PowerUps from './PowerUps';
 import JSConfetti from 'js-confetti';
 
 import { increaseNumberOfGames, increaseNumberOfVictories, setLastPlayed, lastPlayedToday, increaseStreak, alreadyPlayedThisGame, addGamePlayed } from '../utils/cookies';
-import { toTitleCase, normalizeString, reducedNormalize } from '../utils/stringNormalization';
+//import { toTitleCase, normalizeString, reducedNormalize } from '../utils/stringNormalization';
 
 import { motion } from 'framer-motion';
 import GoogleSearchButton from './GoogleSearchButton';
@@ -65,6 +65,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
 
   const [search, setSearch] = useState<React.JSX.Element[]>([]);
   const [searchData, setSearchData] = useState<string>('');
+  const [searchList, setSearchList] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [status, setStatus] = useState<'movies'|'organizing'|'vectors'|'word2vec'|null>(null);
   const [allWords, setAllWords] = useState(null);
@@ -126,45 +127,34 @@ function AutocompleteInput( props:AutocompleteProps ) {
             setPopoverOpen(true);
             var results = [];
 
-            //console.log('searcher', value, toTitleCase(value), normalizeString(value), reducedNormalize(value));
-            const searcher = buildSearch([value, toTitleCase(value), normalizeString(value), reducedNormalize(value), value.toUpperCase()]);
-            //console.log('Searching data...');
-            let query:SearchResult[]|any[] = searcher.search(searchData);
-            for (let i = 0; i < query.length; i++) {
+            for (let i = 0; i < searchList.length; i++) {
                 try {
-                    let start = query[i]['start'];
-                    let end = query[i]['end'];
-                    let searchDataLen = searchData.length;
-                    while (start > 0) {
-                        if (searchData[start] != '\n' && start > 0) start--;
-                        else break;
+                    let matches = searchList[i].toLowerCase()
+                                    .normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+                                    .indexOf(
+                                        value.toLowerCase()
+                                        .normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+                                    ) >= 0 ? true : false;
+                    if (matches) {
+                        results.push(
+                            <Box
+                                display='flex'
+                                alignItems='center'
+                                justifyContent='center'
+                                key={(Math.random() + 1).toString(36).substring(7)}
+                                >
+                                <Button variant='ghost' size="sm" onClick={() => {
+                                    setValue('');
+                                    setSearch([]);
+                                    setGuess(searchList[i].trim().replaceAll('"', ''));
+                                }}>
+                                    <Text>{searchList[i].trim().replaceAll('"', '')}</Text>
+                                </Button>
+                            </Box>
+                        );
+                        setSearch(results);
                     }
-                    //console.log('start', start);
-                    while (end < searchDataLen) {
-                        if (searchData[end] != "\n" && end < searchDataLen) end++;
-                        else break;
-                    }
-                    //console.log('end', end);
-                    results.push(
-                        <Box
-                            display='flex'
-                            alignItems='center'
-                            justifyContent='center'
-                            key={(Math.random() + 1).toString(36).substring(7)}
-                            >
-                            <Button variant='ghost' size="sm" onClick={() => {
-                                setValue('');
-                                setSearch([]);
-                                setGuess(searchData.slice(start+1, end).replaceAll('"', ''));
-                            }}>
-                                <Text>{searchData.slice(start+1, end).replaceAll('"', '')}</Text>
-                            </Button>
-                        </Box>
-                    );
-                    setSearch(results);
-                    //console.log(start, end, searchData.slice(start+1, end));
                 } catch(e) {
-                    //TODO: DISPLAY ERROR MESSAGE
                     console.log((e as Error).message);
                     toast({
                         title: 'Perdão! Algum erro desconhecido aconteceu.',
@@ -175,6 +165,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
                     })
                 }
             }
+
             setIsLoading(false);
         } else {
             setSearch([]);
@@ -191,7 +182,9 @@ function AutocompleteInput( props:AutocompleteProps ) {
         const res = await data.json();
         setStatus('organizing');
         const searchData:string = res.req;
-        console.log(searchData.split('\n'));
+
+        setSearchList(searchData.split('\n'));
+        //console.log(searchData.split('\n'));
         //console.log(searchData);
         setSearchData(searchData);
         //setStatus('vectors');
@@ -362,13 +355,15 @@ function AutocompleteInput( props:AutocompleteProps ) {
                 <Instructions />
             </>
         }
-        <Stack spacing={1} marginY={5} w="100%">
+        <Stack spacing={1} marginY={5} w="100%" justify='center' align='center'>
             {similarities.map((el) => {
                 return (
                     <Box key={el.word} p={2} 
                         border={el.word.trim() === guess?.trim() ? "2px dashed" : "none"}
                         borderColor={el.word.trim() === guess?.trim() ? "blue.500" : "gray.500"}
-                        borderRadius={10}>
+                        borderRadius={10}
+                        w={transformValue(el.similarity, mostSimilar) >= 99.999 ? '100%' : '95%'}
+                        >
                         <motion.div
                             initial={{ opacity: 0, scale: 0.5 }}
                             animate={{ opacity: 1, scale: 1 }}
@@ -378,14 +373,16 @@ function AutocompleteInput( props:AutocompleteProps ) {
                             }}
                         >
                             <Flex flexDirection='row'>
-                                <Text><b>{el.word}</b></Text>
+                                <Text
+                                    fontSize={transformValue(el.similarity, mostSimilar) >= 99.999 ? 'lg' : 'md'}
+                                ><b>{el.word}</b></Text>
                                 <GoogleSearchButton movieName={el.word} />
                             </Flex>
                             <Tooltip label={`${transformValue(el.similarity, mostSimilar).toFixed(2)}%`} hasArrow>
                                 <Progress value={transformValue(el.similarity, mostSimilar)}
                                     colorScheme={getColorScheme(transformValue(el.similarity, mostSimilar))}
                                     //height={transformValue(el.similarity, mostSimilar) > 99.999 ? 37 : 30}
-                                    size='sm'
+                                    size={transformValue(el.similarity, mostSimilar) >= 99.999 ? 'md' : 'sm'}
                                     borderRadius={2}
                                     //border={el.word.trim() === guess?.trim() ? "2px solid" : "none"}
                                     //borderColor={el.word.trim() === guess?.trim() ? "blue.500" : "none"}
@@ -396,36 +393,19 @@ function AutocompleteInput( props:AutocompleteProps ) {
                                 </Progress>
                             </Tooltip>
                             {transformValue(el.similarity, mostSimilar) >= 99.999 &&
-                                <Text fontSize="xs" marginTop={0}><b>Você acertou!</b></Text>
+                                <Badge colorScheme='blue'>Você acertou!</Badge>
                             }
                             {transformValue(el.similarity, mostSimilar) >= 25 && transformValue(el.similarity, mostSimilar) < 99.999 &&
                                 <SimilarTags target={props.word} guess={el.word} allTags={allTags} setAllTags={setAllTags} />
                             }
                             {transformValue(el.similarity, mostSimilar) < 25 &&
-                                <Text fontSize="xs" marginTop={0} color='red.500'>Similaridade muito pequena para obter tags.</Text>
+                                <Badge colorScheme='red'>Similaridade muito pequena</Badge>
                             }
                         </motion.div>
                     </Box>
                 )
             })}
         </Stack>
-
-        {/*<Drawer>
-            <DrawerOverlay />
-            <DrawerContent>
-                <DrawerCloseButton />
-                <DrawerHeader>Tags descobertas</DrawerHeader>
-                <DrawerBody>
-                    {
-                        allTags.map((el) => {
-                            return (
-                                <Badge colorScheme='purple'>{el}</Badge>
-                            )
-                        })
-                    }
-                </DrawerBody>
-            </DrawerContent>
-        </Drawer>*/}
     </Flex>
   )
 }

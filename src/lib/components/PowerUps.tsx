@@ -21,7 +21,7 @@ function PowerUps(props:PowerUpsProps) {
   const [emojiLoading, setEmojiLoading] = useState<boolean>(false);
   const [emoji, setEmoji] = useState<string>('');
   const [topMovies, setTopMovies] = useState<((string|number)[])[]>([]);
-  const [clicked, setClicked] = useState<boolean>(false);
+  const [clicked, setClicked] = useState<number>(0);
 
   useEffect(() => {
     async function getTopMovies() {
@@ -103,12 +103,12 @@ function PowerUps(props:PowerUpsProps) {
     <Wrap gap={3} marginBottom={2} align='center'>
         <WrapItem>
             <Tooltip hasArrow label='Veja um filme similar'>
-                <Button colorScheme='green' size='sm' isDisabled={loading || clicked} 
+                <Button colorScheme='green' size='sm' isDisabled={loading || clicked >= 2} 
                     leftIcon={<FaEye/>} onClick={function() {
                         addMovie();
-                        setClicked(true);
+                        setClicked(clicked + 1);
                     }}>
-                    Revelar um filme ({clicked ? 1 : 0}/1)
+                    Revelar um filme ({clicked}/2)
                 </Button>
             </Tooltip>
         </WrapItem>
