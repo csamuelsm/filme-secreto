@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { Input, Flex, Text, Popover, PopoverAnchor, PopoverContent, PopoverBody, VStack, Box, StackDivider, Spinner, HStack, Button, Progress, ProgressLabel, Stack, useColorMode, useToast, Drawer, DrawerBody, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, Badge, Card, CardBody } from '@chakra-ui/react';
+import { Input, Flex, Text, Popover, PopoverAnchor, PopoverContent, PopoverBody, VStack, Box, StackDivider, Spinner, HStack, Button, Progress, ProgressLabel, Stack, useColorMode, useToast, Drawer, DrawerBody, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, Badge, Card, CardBody, Tooltip } from '@chakra-ui/react';
 //import { getVectorsFromData } from '../utils';
 
 import { notFound } from 'next/navigation'
@@ -19,6 +19,7 @@ import { increaseNumberOfGames, increaseNumberOfVictories, setLastPlayed, lastPl
 import { toTitleCase, normalizeString, reducedNormalize } from '../utils/stringNormalization';
 
 import { motion } from 'framer-motion';
+import GoogleSearchButton from './GoogleSearchButton';
 
 var similarity = require( 'compute-cosine-similarity' );
 
@@ -190,6 +191,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
         const res = await data.json();
         setStatus('organizing');
         const searchData:string = res.req;
+        console.log(searchData.split('\n'));
         //console.log(searchData);
         setSearchData(searchData);
         //setStatus('vectors');
@@ -375,19 +377,24 @@ function AutocompleteInput( props:AutocompleteProps ) {
                                 ease: [0, 0.71, 0.2, 1.01]
                             }}
                         >
-                            <Text><b>{el.word}</b></Text>
-                            <Progress value={transformValue(el.similarity, mostSimilar)}
-                                colorScheme={getColorScheme(transformValue(el.similarity, mostSimilar))}
-                                //height={transformValue(el.similarity, mostSimilar) > 99.999 ? 37 : 30}
-                                size='sm'
-                                borderRadius={2}
-                                //border={el.word.trim() === guess?.trim() ? "2px solid" : "none"}
-                                //borderColor={el.word.trim() === guess?.trim() ? "blue.500" : "none"}
-                                marginBottom={0}
-                                >
-                                {/*<ProgressLabel color={colorMode == 'dark' ? "gray.900" : "white"}
-                                    fontSize="sm" textAlign="left" marginX={3} >{el.word}</ProgressLabel>*/}
-                            </Progress>
+                            <Flex flexDirection='row'>
+                                <Text><b>{el.word}</b></Text>
+                                <GoogleSearchButton movieName={el.word} />
+                            </Flex>
+                            <Tooltip label={`${transformValue(el.similarity, mostSimilar).toFixed(2)}%`} hasArrow>
+                                <Progress value={transformValue(el.similarity, mostSimilar)}
+                                    colorScheme={getColorScheme(transformValue(el.similarity, mostSimilar))}
+                                    //height={transformValue(el.similarity, mostSimilar) > 99.999 ? 37 : 30}
+                                    size='sm'
+                                    borderRadius={2}
+                                    //border={el.word.trim() === guess?.trim() ? "2px solid" : "none"}
+                                    //borderColor={el.word.trim() === guess?.trim() ? "blue.500" : "none"}
+                                    marginBottom={0}
+                                    >
+                                    {/*<ProgressLabel color={colorMode == 'dark' ? "gray.900" : "white"}
+                                        fontSize="sm" textAlign="left" marginX={3} >{el.word}</ProgressLabel>*/}
+                                </Progress>
+                            </Tooltip>
                             {transformValue(el.similarity, mostSimilar) >= 99.999 &&
                                 <Text fontSize="xs" marginTop={0}><b>Você acertou!</b></Text>
                             }

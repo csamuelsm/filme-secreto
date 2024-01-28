@@ -114,9 +114,9 @@ function PowerUps(props:PowerUpsProps) {
         </WrapItem>
         
         <WrapItem>
-            <Popover placement='right-end'>
+            <Popover placement='top-end'>
                 <PopoverTrigger>
-                        <Button colorScheme='yellow' size='sm' leftIcon={<BsEmojiSunglassesFill/>}>
+                        <Button colorScheme='yellow' isDisabled={emojiLoading} size='sm' leftIcon={<BsEmojiSunglassesFill/>}>
                             Ver emojis
                         </Button>
                 </PopoverTrigger>

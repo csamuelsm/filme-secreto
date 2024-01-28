@@ -37,7 +37,7 @@ const Footer = ( props:FooterProps ) => {
         </WrapItem>
 
         <WrapItem>
-          <Link href='https://github.com/csamuelsm/filme-secreto' isExternal>
+          <Link href='https://www.producthunt.com/products/guess-the-movie-2' isExternal>
             <Button colorScheme='orange' leftIcon={<FaProductHunt />} variant='outline'>ProductHunt</Button>
           </Link>
         </WrapItem>

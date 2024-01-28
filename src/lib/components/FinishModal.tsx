@@ -99,11 +99,11 @@ function FinishModal(props:ModalProps) {
                 {/*<Divider />*/}
 
                 <Text marginY={3} fontSize="sm">
-                    Se você gostou deste jogo, por favor considere fazer uma <b>doação de qualquer valor</b> para apoiar sua manutenção.
+                    Se você gostou deste jogo, por favor <b>considere fazer uma doação</b>.
                 </Text>
 
                 <Text marginY={3} fontSize="sm">
-                    Compartilhe o jogo com seus amigos no <b>Twitter, Facebook, WhatsApp, Telegram</b> e outras redes no botão abaixo.
+                    Compartilhe o jogo com seus amigos!
                 </Text>
             </ModalBody>
             <ModalFooter>
@@ -111,18 +111,18 @@ function FinishModal(props:ModalProps) {
                     data={{
                         text: encodeURIComponent(`🎥 Filme Secreto #${props.gameNumber}\n\n🔵 ${props.blue}\n🟢 ${props.green}\n🟡 ${props.yellow}\n🔴 ${props.red}\n\n🏆 Nº de vitórias seguidas: ${getStreak()}\n\n`),
                         url: window.location.href,
-                        title: "AdivinheOFilme",
+                        title: "Filme Secreto",
                     }}
                     disableNative={true}
                     onClick={() => {
                         track('Share');
                     }}
                 >
-                <Button marginX={2} rightIcon={<FaShareAlt />}>
+                <Button marginX={2} variant='outline' colorScheme='blue' size='lg' rightIcon={<FaShareAlt />}>
                     Compartilhar
                 </Button>
                 </RWebShare>
-                <Button colorScheme='green' variant='outline' rightIcon={<FaHandHoldingHeart />}
+                <Button colorScheme='green' variant='solid' size='lg' rightIcon={<FaHandHoldingHeart />}
                     onClick={() => {
                         track('Donation')
                         props.setDonation(true);
