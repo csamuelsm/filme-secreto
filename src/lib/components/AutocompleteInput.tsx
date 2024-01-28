@@ -350,7 +350,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
                 <CardBody>
                     <Text fontSize='xs'><b>Está com dificuldade?</b> Utilize nossas ajudas:</Text>
                     <Hints target={props.word} />
-                    <PowerUps target={props.word} similarities={similarities} setGuess={setGuess} />
+                    <PowerUps target={props.word} similarities={similarities} setGuess={setGuess} gameNumber={props.gameNumber} />
                 </CardBody>
             </Card>
         </>

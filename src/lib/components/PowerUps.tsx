@@ -1,4 +1,4 @@
-import { Badge, Button, HStack, Text, Tooltip, Wrap, WrapItem } from '@chakra-ui/react'
+import { Badge, Button, HStack, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Portal, Text, Tooltip, Wrap, WrapItem } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { FaEye } from "react-icons/fa";
 import { BsEmojiSunglassesFill } from "react-icons/bs";
@@ -12,11 +12,14 @@ type PowerUpsProps = {
     target:string,
     similarities:SimilaritiesType[],
     setGuess:React.Dispatch<React.SetStateAction<string|null>>,
+    gameNumber:number,
 }
 
 function PowerUps(props:PowerUpsProps) {
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [emojiLoading, setEmojiLoading] = useState<boolean>(false);
+  const [emoji, setEmoji] = useState<string>('');
   const [topMovies, setTopMovies] = useState<((string|number)[])[]>([]);
   const [clicked, setClicked] = useState<boolean>(false);
 
@@ -42,7 +45,30 @@ function PowerUps(props:PowerUpsProps) {
         setLoading(false);
     }
 
+    async function getEmojis() {
+        setEmojiLoading(true);
+
+        let res = await fetch('/api/get_emoji', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                gameNumber: props.gameNumber
+            })
+        });
+
+        let data = await res.json();
+        console.log(data);
+        let emojiDesc:string = data['emojis'];
+
+        setEmoji(emojiDesc);
+
+        setEmojiLoading(false);
+    }
+
     getTopMovies();
+    getEmojis();
   }, []);
 
   function addMovie() {
@@ -87,13 +113,28 @@ function PowerUps(props:PowerUpsProps) {
             </Tooltip>
         </WrapItem>
         
-        {/*<WrapItem>
-            <Tooltip hasArrow label='Descrição do filme com emojis'>
-                <Button colorScheme='yellow' size='sm' leftIcon={<BsEmojiSunglassesFill/>}>
-                    Ver emojis
-                </Button>
-            </Tooltip>
-        </WrapItem>*/}
+        <WrapItem>
+            <Popover placement='right-end'>
+                <PopoverTrigger>
+                        <Button colorScheme='yellow' size='sm' leftIcon={<BsEmojiSunglassesFill/>}>
+                            Ver emojis
+                        </Button>
+                </PopoverTrigger>
+                <Portal>
+                    <PopoverContent>
+                        <PopoverArrow />
+                        <PopoverHeader><Text fontSize='sm'><b>Descrição em emojis</b></Text></PopoverHeader>
+                        <PopoverCloseButton />
+                        <PopoverBody>
+                            <Text fontSize='lg'>{emoji == 'indisponível' ? '😞 Indisponível' : emoji}</Text>
+                            <Text fontSize='xs'>
+                                Esta é uma funcionalidade experimental.
+                            </Text>
+                        </PopoverBody>
+                    </PopoverContent>
+                </Portal>
+            </Popover>
+        </WrapItem>
     </Wrap>
   )
 }
