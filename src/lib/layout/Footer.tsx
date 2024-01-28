@@ -29,7 +29,7 @@ const Footer = ( props:FooterProps ) => {
         </Link>
       </Text>
 
-      <Wrap gap={3} marginY={2}>
+      <Wrap gap={3} marginY={2} align='center' justify='center'>
         <WrapItem>
           <Link href='https://github.com/csamuelsm/filme-secreto' isExternal>
             <Button colorScheme='gray' leftIcon={<FaGithubAlt />} variant='outline'>Github</Button>

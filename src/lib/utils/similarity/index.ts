@@ -127,7 +127,7 @@ export async function getMostSimilarTags(target:string, guess:string, tagData:Ta
     return values;
 }
 
-function top5search(wordsObject:wordObjectType[], word:string) {
+export function top5search(wordsObject:wordObjectType[], word:string) {
     let guessVector:number[] = [];
     for (let i = 0; i < wordsObject.length; i++) {
         if (wordsObject[i].word === word) {

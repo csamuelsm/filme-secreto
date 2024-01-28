@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { Input, Flex, Text, Popover, PopoverAnchor, PopoverContent, PopoverBody, VStack, Box, StackDivider, Spinner, HStack, Button, Progress, ProgressLabel, Stack, useColorMode, useToast, Drawer, DrawerBody, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, Badge } from '@chakra-ui/react';
+import { Input, Flex, Text, Popover, PopoverAnchor, PopoverContent, PopoverBody, VStack, Box, StackDivider, Spinner, HStack, Button, Progress, ProgressLabel, Stack, useColorMode, useToast, Drawer, DrawerBody, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, Badge, Card, CardBody } from '@chakra-ui/react';
 //import { getVectorsFromData } from '../utils';
 
 import { notFound } from 'next/navigation'
@@ -12,6 +12,7 @@ import { getVectorsFromData } from '../utils';
 import Instructions from './Instructions';
 import SimilarTags from './SimilarTags';
 import Hints from './Hints';
+import PowerUps from './PowerUps';
 import JSConfetti from 'js-confetti';
 
 import { increaseNumberOfGames, increaseNumberOfVictories, setLastPlayed, lastPlayedToday, increaseStreak, alreadyPlayedThisGame, addGamePlayed } from '../utils/cookies';
@@ -311,7 +312,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
 
         {status === null &&
         <>
-            <Text fontSize="xs"><b>Jogo</b> {'#'}{props.gameNumber} / <b>Nº de tentativas:</b> {similarities.length}</Text>
+            <Text fontSize="sm"><b>Jogo</b> {'#'}{props.gameNumber} / <b>Nº de tentativas:</b> {similarities.length}</Text>
             <Popover
                 isOpen={popoverOpen}
                 closeOnBlur={false}
@@ -345,7 +346,13 @@ function AutocompleteInput( props:AutocompleteProps ) {
                     </PopoverBody>
                 </PopoverContent>
             </Popover>
-            <Hints target={props.word} />
+            <Card variant='filled' size='sm' mb={0} mt={2}>
+                <CardBody>
+                    <Text fontSize='xs'><b>Está com dificuldade?</b> Utilize nossas ajudas:</Text>
+                    <Hints target={props.word} />
+                    <PowerUps target={props.word} similarities={similarities} setGuess={setGuess} />
+                </CardBody>
+            </Card>
         </>
         }
         {similarities.length == 0 &&
