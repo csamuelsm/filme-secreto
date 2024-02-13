@@ -2,6 +2,7 @@ import { Badge, Button, HStack, Popover, PopoverArrow, PopoverBody, PopoverClose
 import React, { useEffect, useState } from 'react'
 import { FaEye } from "react-icons/fa";
 import { BsEmojiSunglassesFill } from "react-icons/bs";
+import LetterboxdButton from './LetterboxdButton';
 
 type SimilaritiesType = {
     word:string,
@@ -135,6 +136,10 @@ function PowerUps(props:PowerUpsProps) {
                 </Portal>
             </Popover>
         </WrapItem>
+
+        {/*<WrapItem>
+            <LetterboxdButton />
+        </WrapItem>*/}
     </Wrap>
   )
 }
