@@ -9,12 +9,14 @@ export const GET = async (req: Request) => {
         const fileDirectory = path.join(process.cwd(), 'public');
         const fileContent = await fs.readFile(fileDirectory + file, 'utf8');
         const movies = fileContent.split(/\r\n|\n/);
+        const movieNumber = movies.length;
         //console.log(movies);
         const today = new Date();
         let diffMs = today.getTime() - startDate.getTime();
         let diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        let index = diffDays % movieNumber;
         //console.log(diffDays)
-        return NextResponse.json({ game: movies[diffDays], number: diffDays+1 }, { status: 200 });
+        return NextResponse.json({ game: movies[index], number: diffDays+1 }, { status: 200 });
     } catch (err) {
         return NextResponse.json({ message: err }, { status: 500 });
     }
