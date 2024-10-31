@@ -24,7 +24,7 @@ function DonationModal(props:ModalProps) {
                     Você pode doar <b>qualquer valor para apoiar este jogo</b>. Escolha a melhor opção para você:
                 </Text>
                 <Flex flexDirection="column" gap={2} marginY={3}>
-                    <Button w='100%' leftIcon={<FaPix/>} variant='outline' colorScheme='teal'
+                    <Button w='100%' leftIcon={<FaPix/>} variant='solid' colorScheme='teal'
                     onClick={() => {
                         props.pixModal(true);
                     }}>
@@ -40,7 +40,7 @@ function DonationModal(props:ModalProps) {
                             PayPal
                         </Button>
                     </Link>
-                    <Link href='https://github.com/sponsors/csamuelsm' isExternal>
+                    {/*<Link href='https://github.com/sponsors/csamuelsm' isExternal>
                         <Button w='100%' leftIcon={<FaGithubAlt/>} variant='outline' colorScheme='gray'>
                             Github Sponsors
                         </Button>
@@ -49,7 +49,7 @@ function DonationModal(props:ModalProps) {
                         <Button w='100%' leftIcon={<FaCoffee/>} variant='outline' colorScheme='orange'>
                             Buy me a Coffee
                         </Button>
-                    </Link>
+                    </Link>*/}
                 </Flex>
             </ModalBody>
             {/*<ModalFooter>
