@@ -72,9 +72,9 @@ const Header = (props:HeaderProps) => {
                 }}>
                   Créditos
                 </MenuItem>
-                <MenuItem as='a' href='https://guess-the-movie-one.vercel.app/' icon={<FaLanguage />}>
+                {/*<MenuItem as='a' href='https://guess-the-movie-one.vercel.app/' icon={<FaLanguage />}>
                   Versão inglês
-                </MenuItem>
+                </MenuItem>*/}
               </MenuList>
             </Menu>
         </Box>
