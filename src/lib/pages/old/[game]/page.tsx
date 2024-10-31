@@ -16,6 +16,7 @@ import { useParams } from 'next/navigation'
 
 import { alreadyPlayedThisGame } from '~/lib/utils/cookies';
 import Footer from '~/lib/layout/Footer';
+import UpdatesModal from '~/lib/components/UpdatesModal';
 
 export default function Old () {
   const [finishModal, setFinishModal] = useState<boolean>(false);

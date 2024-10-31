@@ -47,7 +47,7 @@ export const POST = async (req: Request) => {
         { status: 500 }
       );
     return NextResponse.json(
-      //{ game: movies[data.gameNumber - 1], number: data.gameNumber },
+      // { game: movies[data.gameNumber - 1], number: data.gameNumber },
       { game: movies[index], number: data.gameNumber },
       { status: 200 }
     );

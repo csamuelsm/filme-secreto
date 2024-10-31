@@ -14,7 +14,10 @@ import CreditsModal from '~/lib/components/CreditsModal';
 import OldGamesModal from '~/lib/components/OldGamesModal';
 import Footer from '~/lib/layout/Footer';
 
+import Cookies from 'universal-cookie';
+
 import { lastPlayedToday } from '~/lib/utils/cookies';
+import UpdatesModal from '~/lib/components/UpdatesModal';
 
 export default function Home () {
   const [finishModal, setFinishModal] = useState<boolean>(false);
@@ -23,6 +26,7 @@ export default function Home () {
   const [pixModal, setPixModal] = useState<boolean>(false);
   const [creditsModal, setCreditsModal] = useState<boolean>(false);
   const [oldGamesModal, setOldGamesModal] = useState<boolean>(false);
+  const [updatesModal, setUpdatesModal] = useState<boolean>(false);
   const [movie, setMovie] = useState<string|null>(null);
   const [gameNumber, setGameNumber] = useState<number>(0);
 
@@ -30,6 +34,20 @@ export default function Home () {
   const [green, setGreen] = useState<number>(0);
   const [yellow, setYellow] = useState<number>(0);
   const [red, setRed] = useState<number>(0);
+
+  const cookies = new Cookies('updates');
+
+  useEffect(()=>{
+    //console.log('cookies', cookies.get('updates'));
+    if (cookies.get('updates')) {
+      setUpdatesModal(false); //Modal does not open if cookie exists
+    } else if (!cookies.get('updates')) {
+       cookies.set('updates', 'true', {
+        path: '/',
+       });
+       setUpdatesModal(true); //Creates a cookie and shows modal.
+    }
+  },[]);
 
   useEffect(() => {
 
@@ -64,6 +82,7 @@ export default function Home () {
       <PixModal open={pixModal} setOpen={setPixModal} />
       <CreditsModal open={creditsModal} setOpen={setCreditsModal} />
       <OldGamesModal open={oldGamesModal} setOpen={setOldGamesModal} />
+      <UpdatesModal open={updatesModal} setOpen={setUpdatesModal} pixModal={setPixModal}/>
       {movie === null && <Spinner />}
       {movie !== null && gameNumber > 0 &&
       <>
