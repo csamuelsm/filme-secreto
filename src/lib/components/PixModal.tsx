@@ -22,7 +22,7 @@ function PixModal(props:ModalProps) {
                     Você pode scanear este QR Code e fazer um pix para Cicero Samuel Santos Morais.
                 </Text>
                 <Flex w='100%' textAlign='center' alignItems='center' flexDirection='column'>
-                    <img src='/qr-code-pix.PNG' alt='qr-code-pix' style={{
+                    <img src='/qr-code-pix.png' alt='qr-code-pix' style={{
                         marginTop: 3,
                         marginBottom: 3,
                     }} />
