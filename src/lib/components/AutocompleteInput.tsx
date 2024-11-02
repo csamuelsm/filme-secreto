@@ -21,6 +21,7 @@ import { increaseNumberOfGames, increaseNumberOfVictories, setLastPlayed, lastPl
 
 import { motion } from 'framer-motion';
 import GoogleSearchButton from './GoogleSearchButton';
+import { Gaussian } from 'ts-gaussian';
 
 var similarity = require( 'compute-cosine-similarity' );
 
@@ -53,11 +54,6 @@ function getColorScheme(sim:number) {
     }
 }
 
-function transformValue(sim:number, biggest_sim:number) {
-    if (sim == 100) return sim;
-    return 99*sim/biggest_sim;
-}
-
 function AutocompleteInput( props:AutocompleteProps ) {
   const [value, setValue] = useState<string>('');
   const handleChange = (event:ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
@@ -77,12 +73,25 @@ function AutocompleteInput( props:AutocompleteProps ) {
     similarity:number
   }[]>([]);
   const [mostSimilar, setMostSimilar] = useState<number>(0);
+  //const [leastSimilar, setLeastSimilar] = useState<number>(0);
+  //const [simSum, setSimSum] = useState<number>(0);
+  //const [simMean, setSimMean] = useState<number>(0);
+  //const [simStd, setSimStd] = useState<number>(0);
   const toast = useToast();
   const { colorMode, toggleColorMode } = useColorMode();
 
   const [allTags, setAllTags] = useState<string[]>([]);
 
   const cookies = new Cookies(props.gameNumber.toString(), { path: '/' });
+
+  function transformValue(sim:number, biggest_sim:number) {
+    if (sim == 100) return sim;
+    const distribution = new Gaussian(83, 17);
+    //console.log('dist', simMean, simStd);
+    //console.log('sim', simMean, simStd, sim, distribution.cdf(sim));
+    return Math.floor(distribution.cdf(sim)*100);
+    //return 99*sim/biggest_sim;
+    }
 
   function increaseCorrespondingColor(val:number) {
     let color = getColorScheme(val);
@@ -233,18 +242,38 @@ function AutocompleteInput( props:AutocompleteProps ) {
 
         // finding the closest movie to the current
 
-        let biggest_sim = -999;
+        let biggest_sim = -999999;
+        /*let smallest_sim = 999999;
+        let simSum = 0;
+        let simCount = 0;
+        let simList = [];*/
         for (let i = 0; i < vectors.vectors.length; i++) {
             //@ts-ignore
             //console.log(vectors.vectors[i].vector, currWord.vector)
             //@ts-ignore
-            let sim = similarity(vectors.vectors[i].vector, currWord.vector);
+            let sim = Math.abs(similarity(vectors.vectors[i].vector, currWord.vector));
+            /*simSum += sim*100;
+            simList.push(sim*100);*/
             //@ts-ignore
-            if (sim > biggest_sim && sim < 99.999>)
-                biggest_sim = sim
+            if (sim > biggest_sim && sim < 99.999)
+                biggest_sim = sim;
+            /*if (sim < smallest_sim) {
+                smallest_sim = sim;
+            }*/
+
+            //simCount += 1;
         }
+        /*let stdSum = 0;
+        let simMean = simSum/simCount;
+        for (let i = 0; i < simList.length; i++) {
+            stdSum += (simList[i]-simMean)*(simList[i]-simMean);
+        }
+        //console.log('std', Math.sqrt(stdSum/simCount));
+        setSimStd(Math.sqrt(stdSum/simCount));*/
         //console.log('biggest_sim', biggest_sim)
         setMostSimilar(biggest_sim*100);
+        //setLeastSimilar(smallest_sim*100);
+        //setSimMean(simMean);
         setStatus(null);
     }
 

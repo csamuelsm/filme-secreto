@@ -49,7 +49,7 @@ export const POST = async (req: Request) => {
 
     return NextResponse.json(
       // { game: movies[data.gameNumber - 1], number: data.gameNumber },
-      { tmdbId: ids[index], number: data.gameNumber, tmdbData: tmdbJson.results.slice(0, 3) },
+      { tmdbId: ids[index], number: data.gameNumber, tmdbData: tmdbJson.results.slice(4, 7) },
       { status: 200 }
     );
   } catch (err) {

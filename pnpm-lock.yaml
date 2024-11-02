@@ -112,6 +112,9 @@ dependencies:
   translate-google:
     specifier: ^1.5.0
     version: 1.5.0
+  ts-gaussian:
+    specifier: ^3.0.4
+    version: 3.0.4
   universal-cookie:
     specifier: ^7.2.2
     version: 7.2.2
@@ -9294,6 +9297,11 @@ packages:
     dependencies:
       typescript: 5.1.6
     dev: true
+
+  /ts-gaussian@3.0.4:
+    resolution: {integrity: sha512-j1KjlWU23REHbAai23IC4Lv+jWXKA0u3iREWRzbalIwgWHWZbs1SaKomF7vX6z464441IyYE/h4s0n6FnuidQQ==}
+    engines: {node: '>=14.16'}
+    dev: false
 
   /ts-node@10.9.1(@types/node@18.16.1)(typescript@5.1.6):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
