@@ -8,7 +8,6 @@ import { getLastPlayed, getNumberOfGames, getNumberOfVictories, getVictoriesPerc
 import CountDown from './CountDown';
 import { RWebShare } from "react-web-share";
 import { track } from '@vercel/analytics';
-import AdsTerra from './AdsTerra';
 
 type ModalProps = {
     open: boolean,

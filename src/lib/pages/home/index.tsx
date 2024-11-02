@@ -44,6 +44,7 @@ export default function Home () {
     } else if (!cookies.get('updates')) {
        cookies.set('updates', 'true', {
         path: '/',
+        maxAge: 60*60*24*360,
        });
        setUpdatesModal(true); //Creates a cookie and shows modal.
     }
@@ -58,6 +59,7 @@ export default function Home () {
     }).then((json) => {
       if (json.game) {
         setGameNumber(json.number);
+        console.log('Game number', json.number);
         return json.game;
       }
       else return "error";
@@ -65,7 +67,7 @@ export default function Home () {
       if (mov !== "error") setMovie(mov);
       else notFound();
     })
-  })
+  }, []);
 
   return (
     <Flex

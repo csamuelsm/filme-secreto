@@ -14,6 +14,7 @@ import SimilarTags from './SimilarTags';
 import Hints from './Hints';
 import PowerUps from './PowerUps';
 import JSConfetti from 'js-confetti';
+import Cookies from 'universal-cookie';
 
 import { increaseNumberOfGames, increaseNumberOfVictories, setLastPlayed, lastPlayedToday, increaseStreak, alreadyPlayedThisGame, addGamePlayed } from '../utils/cookies';
 //import { toTitleCase, normalizeString, reducedNormalize } from '../utils/stringNormalization';
@@ -81,6 +82,8 @@ function AutocompleteInput( props:AutocompleteProps ) {
 
   const [allTags, setAllTags] = useState<string[]>([]);
 
+  const cookies = new Cookies(props.gameNumber.toString(), { path: '/' });
+
   function increaseCorrespondingColor(val:number) {
     let color = getColorScheme(val);
     if (color == 'blue') props.setBlue(props.blue+1);
@@ -112,6 +115,14 @@ function AutocompleteInput( props:AutocompleteProps ) {
     }, 1000);
     props.setCanGiveUp(false);
   }
+
+  useEffect(() => {
+    // cookies do jogo
+    if(cookies.get(props.gameNumber.toString())) {
+        //console.log('cookies', cookies.get(props.gameNumber.toString()));
+        setSimilarities(cookies.get(props.gameNumber.toString()));
+    };
+  }, []);
 
   useEffect(() => {
     if ((!props.oldGame && lastPlayedToday()) || (props.oldGame && alreadyPlayedThisGame(props.gameNumber))) {
@@ -270,6 +281,10 @@ function AutocompleteInput( props:AutocompleteProps ) {
             });
             //@ts-ignore
             setSimilarities(similarityArray);
+            cookies.set(props.gameNumber.toString(), similarityArray, {
+                path: '/',
+                maxAge: 60 * 60 * 24 * 360,
+            });
             //@ts-ignore
             //console.log('similarity:',(similarity(currWordData.vector, guessData.vector)*100).toFixed(1));
         } else {
@@ -350,11 +365,12 @@ function AutocompleteInput( props:AutocompleteProps ) {
             </Card>
         </>
         }
-        {similarities.length == 0 &&
+        {(similarities.length == 0 || status != null) &&
             <>
                 <Instructions />
             </>
         }
+        {status === null &&
         <Stack spacing={1} marginY={5} w="100%" justify='center' align='center'>
             {similarities.map((el) => {
                 return (
@@ -406,6 +422,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
                 )
             })}
         </Stack>
+        }
     </Flex>
   )
 }

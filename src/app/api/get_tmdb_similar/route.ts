@@ -4,51 +4,52 @@ import path from 'path';
 
 import { startDate } from '~/lib/utils/const';
 
-export const GET = async (req: Request) => {
-  try {
-    const file = '/games.csv';
-    const fileDirectory = path.join(process.cwd(), 'public');
-    const fileContent = await fs.readFile(fileDirectory + file, 'utf8');
-    const movies = fileContent.split(/\r\n|\n/);
-    const movieNumber = movies.length;
-    // console.log(movies);
-    const today = new Date();
-    const diffMs = today.getTime() - startDate.getTime();
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-    const index = diffDays % movieNumber;
-    // console.log(diffDays)
-    return NextResponse.json(
-      { game: movies[index], number: diffDays + 1 },
-      { status: 200 }
-    );
-  } catch (err) {
-    return NextResponse.json({ message: err }, { status: 500 });
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: `Bearer ${process.env.TMDB_KEY}`
   }
 };
 
 export const POST = async (req: Request) => {
   const data = await req.json();
   try {
-    const file = '/games.csv';
+    const file = '/tmdb_ids.csv';
+    const fileMovies = '/games.csv';
+
     const fileDirectory = path.join(process.cwd(), 'public');
     const fileContent = await fs.readFile(fileDirectory + file, 'utf8');
-    const movies = fileContent.split(/\r\n|\n/);
+    const fileMoviesContent = await fs.readFile(fileDirectory + fileMovies, 'utf8');
+
+    const ids = fileContent.split(/\r\n|\n/);
+    const movies = fileMoviesContent.split(/\r\n|\n/);
+
     const movieNumber = movies.length;
     // console.log(movies);
     // console.log(diffDays)
     // console.log(movies);
+
     const today = new Date();
     const diffMs = today.getTime() - startDate.getTime();
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
     const index = (data.gameNumber-1) % movieNumber;
-    if (data.gameNumber > diffDays)
+
+    if (data.gameNumber > diffDays+1){
       return NextResponse.json(
         { message: 'Future games not allowed' },
         { status: 500 }
       );
+    }
+    
+    let url =  `https://api.themoviedb.org/3/movie/${ids[index]}/recommendations?language=pt-BR&page=1`;
+
+    let tmdbApiData = await fetch(url, options);
+    let tmdbJson = await tmdbApiData.json();
+
     return NextResponse.json(
       // { game: movies[data.gameNumber - 1], number: data.gameNumber },
-      { game: movies[index], number: data.gameNumber },
+      { tmdbId: ids[index], number: data.gameNumber, tmdbData: tmdbJson.results.slice(0, 3) },
       { status: 200 }
     );
   } catch (err) {

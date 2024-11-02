@@ -2,7 +2,8 @@ import { Badge, Button, HStack, Popover, PopoverArrow, PopoverBody, PopoverClose
 import React, { useEffect, useState } from 'react'
 import { FaEye } from "react-icons/fa";
 import { BsEmojiSunglassesFill } from "react-icons/bs";
-import LetterboxdButton from './LetterboxdButton';
+import TmdbSimilar from './TmdbSimilar';
+import TmdbBackdrop from './TmdbBackdrop';
 
 type SimilaritiesType = {
     word:string,
@@ -18,14 +19,15 @@ type PowerUpsProps = {
 
 function PowerUps(props:PowerUpsProps) {
 
-  const [loading, setLoading] = useState<boolean>(false);
+  /*const [loading, setLoading] = useState<boolean>(false);
   const [emojiLoading, setEmojiLoading] = useState<boolean>(false);
   const [emoji, setEmoji] = useState<string>('');
   const [topMovies, setTopMovies] = useState<((string|number)[])[]>([]);
-  const [clicked, setClicked] = useState<number>(0);
+  const [clicked, setClicked] = useState<number>(0);*/
 
-  useEffect(() => {
-    async function getTopMovies() {
+  //useEffect(() => {
+    
+    /*async function getTopMovies() {
         setLoading(true);
         let res = await fetch('/api/get_top_movies', {
             method: 'POST',
@@ -83,26 +85,26 @@ function PowerUps(props:PowerUpsProps) {
         if (alreadyGuessed)
             continue;
         else {
-            /*let newSim = props.similarities.slice();
-            newSim.push({
-                word: String(topMovies[j][0]),
-                similarity: Number(topMovies[j][1])*100.0
-            });*/
+            //let newSim = props.similarities.slice();
+            //newSim.push({
+            //    word: String(topMovies[j][0]),
+            //    similarity: Number(topMovies[j][1])*100.0
+            //});
             props.setGuess(String(topMovies[j][0]));
-            /*newSim.sort(function(a, b) {
-                if (a.similarity < b.similarity) return 1;
-                else if (a.similarity > b.similarity) return -1;
-                else return 0;
-            })
-            props.setSimilarities(newSim);*/
+            //newSim.sort(function(a, b) {
+            //    if (a.similarity < b.similarity) return 1;
+            //    else if (a.similarity > b.similarity) return -1;
+            //    else return 0;
+            //})
+            //props.setSimilarities(newSim);
             break;
         }
     }
-  }
+  }*/
 
   return (
     <Wrap gap={3} marginBottom={2} align='center'>
-        <WrapItem>
+        {/*<WrapItem>
             <Tooltip hasArrow label='Veja um filme similar'>
                 <Button colorScheme='green' size='sm' isDisabled={loading || clicked >= 2} 
                     leftIcon={<FaEye/>} onClick={function() {
@@ -135,11 +137,14 @@ function PowerUps(props:PowerUpsProps) {
                     </PopoverContent>
                 </Portal>
             </Popover>
-        </WrapItem>
-
-        {/*<WrapItem>
-            <LetterboxdButton />
         </WrapItem>*/}
+
+        <WrapItem>
+            <TmdbSimilar gameNumber={props.gameNumber} />
+        </WrapItem>
+        <WrapItem>
+            <TmdbBackdrop gameNumber={props.gameNumber} />
+        </WrapItem>
     </Wrap>
   )
 }
