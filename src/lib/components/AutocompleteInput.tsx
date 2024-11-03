@@ -89,7 +89,7 @@ function AutocompleteInput( props:AutocompleteProps ) {
     const distribution = new Gaussian(83, 17);
     //console.log('dist', simMean, simStd);
     //console.log('sim', simMean, simStd, sim, distribution.cdf(sim));
-    return Math.floor(distribution.cdf(sim)*100);
+    return distribution.cdf(sim)*100;
     //return 99*sim/biggest_sim;
     }
 
