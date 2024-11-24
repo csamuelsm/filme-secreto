@@ -30,11 +30,11 @@ const Footer = ( props:FooterProps ) => {
       </Text>
 
       <Wrap gap={3} marginY={2} align='center' justify='center'>
-        <WrapItem>
+        {/*<WrapItem>
           <Link href='https://github.com/csamuelsm/filme-secreto' isExternal>
             <Button colorScheme='gray' leftIcon={<FaGithubAlt />} variant='outline'>Github</Button>
           </Link>
-        </WrapItem>
+        </WrapItem>*/}
 
         <WrapItem>
           <Link href='https://www.producthunt.com/products/guess-the-movie-2' isExternal>

@@ -81,7 +81,7 @@ const forbidden_words:string[] = ['',
 'batshit crazy', 'stupid children ruin everything', 'useless', 'transvestites',
 'underaged sexchild porn', 'evangelical christian trash',
 'pretentious', 'previsible', 'bad acting', 'overestimated', 'overvalue', 'predictable', 'foreseeable',
-'cocky', 'poor plot', 'overrated', 'bad writing', 'poor dialogue', 'racial victimism',
+'cocky', 'poor plot', 'overrated', 'bad writing', 'poor dialogue', 'racial victimism', 'bdr',
 'good acting', 'great acting', 'atmospheric', 'acting', 'dvix', 'divx', 'ending', 'have',
 'having', 'want', 'wish', 'waiting', 'itaege', 'etaege', 'tumeys dvds', 'exclusive', 'chick flick', 'afi no emotions'];
 
@@ -200,7 +200,7 @@ export async function getHints(guess:string) {
         return second[1] - first[1];
     });
 
-    let only5 = top5tags.slice(0, 3).map(el => {
+    let only5 = top5tags.slice(0, 10).map(el => {
         return el[0];
     });
 
