@@ -2,6 +2,7 @@ import { Badge, Button, HStack, Text, Tooltip, Wrap, WrapItem } from '@chakra-ui
 import React, { useEffect, useState } from 'react'
 import { FaQuestionCircle } from "react-icons/fa";
 import HintsBuyModal from './HintsBuyModal';
+import Cookies from 'universal-cookie';
 
 type HintsProps = {
     target:string
@@ -13,6 +14,24 @@ function Hints(props:HintsProps) {
   const [hintNumber, setHintNumber] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [openPixModal, setOpenPixModal] = useState<boolean>(false);
+
+  const cookies = new Cookies(`${props.target.replace(/[^a-zA-Z0-9]/g, '')}_hintNumber`, { path: '/' });
+
+    useEffect(() => {
+        // cookies do jogo
+        if(cookies.get(`${props.target.replace(/[^a-zA-Z0-9]/g, '')}_hintNumber`)) {
+            //console.log('cookies', cookies.get(props.gameNumber.toString()));
+            setHintNumber(cookies.get(`${props.target.replace(/[^a-zA-Z0-9]/g, '')}_hintNumber`));
+        };
+      }, []);
+
+    function setCookie(val:number) {
+        cookies.set(`${props.target.replace(/[^a-zA-Z0-9]/g, '')}_hintNumber`, 
+            val, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 360,
+        });
+    }
 
   useEffect(() => {
     async function getHints() {
@@ -46,6 +65,7 @@ function Hints(props:HintsProps) {
                 <Button colorScheme='purple' size='sm' isDisabled={!(hintNumber < 10) || loading} onClick={() => {
                     if (hintNumber < 3) {
                         let currHintNumber = hintNumber;
+                        setCookie(hintNumber+1);
                         setHintNumber(hintNumber+1);
                     } else {
                         setOpenPixModal(true);
@@ -67,7 +87,7 @@ function Hints(props:HintsProps) {
             })
         }
     </Wrap>
-    <HintsBuyModal setOpen={setOpenPixModal} open={openPixModal} hintNumber={hintNumber} setHintNumber={setHintNumber} />
+    <HintsBuyModal setOpen={setOpenPixModal} open={openPixModal} hintNumber={hintNumber} setHintNumber={setHintNumber} setCookie={setCookie} />
     </>
   )
 }

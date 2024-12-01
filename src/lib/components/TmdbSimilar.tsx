@@ -1,6 +1,9 @@
-import { Text, Image, Button, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Portal, Flex, Box, HStack } from '@chakra-ui/react';
+import { Text, Image, Button, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Portal, Flex, Box, HStack, Divider } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { FaEye } from 'react-icons/fa';
+import { FaUnlock } from "react-icons/fa";
+import SimilarMoviesBuyModal from './SimilarMoviesBuyModal';
+import Cookies from 'universal-cookie';
 
 type TmdbSimilarProps = {
     gameNumber: number,
@@ -30,6 +33,26 @@ function TmdbSimilar(props:TmdbSimilarProps) {
 
     const [loading, setLoading] = useState<boolean>(true);
     const [similars, setSimilars] = useState<TmdbJson[]>([]);
+    const [revelar, setRevelar] = useState<number>(1);
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+    const cookies = new Cookies(`${props.gameNumber.toString()}_revelar`, { path: '/' });
+
+    useEffect(() => {
+        // cookies do jogo
+        if(cookies.get(`${props.gameNumber.toString()}_revelar`)) {
+            //console.log('cookies', cookies.get(props.gameNumber.toString()));
+            setRevelar(cookies.get(`${props.gameNumber.toString()}_revelar`));
+        };
+      }, []);
+
+    function setCookie(val:number) {
+        cookies.set(`${props.gameNumber.toString()}_revelar`, 
+            val, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 360,
+        });
+    }
 
     async function getSimilarMovies() {
         setLoading(true);
@@ -68,20 +91,24 @@ function TmdbSimilar(props:TmdbSimilarProps) {
                     <PopoverBody>
                         <HStack gap={4} alignItems='flex-start'>
                                 {!loading && similars.length > 0 &&
-                                    (similars.map(val => {
+                                    (similars.map((val, idx) => {
                                         return (
-                                            <Box>
-                                                <Image src={baseImgUrl+val.poster_path} marginBottom={1} />
-                                                <Text fontSize='sm' lineHeight='1.2'><b>{val.title}</b></Text>
-                                            </Box>
+                                                <Box filter='auto' blur={idx <= revelar ? '5px' : '0px'}>
+                                                    <Text fontSize='xs' lineHeight='1.2'><b>#{idx+1}</b></Text>
+                                                    <Image src={baseImgUrl+val.poster_path} marginBottom={1} />
+                                                    <Text fontSize='sm' lineHeight='1.2'><b>{val.title}</b></Text>
+                                                </Box>
                                         )
                                     }))
                                 }
                         </HStack>
+                        <Divider marginY={2} />
+                        <Button leftIcon={<FaUnlock />} isDisabled={revelar < 0} size='xs' colorScheme='red' alignSelf='flex-end' justifySelf='flex-end' onClick={() => setModalOpen(true)}>Revelar Filme</Button>
                         <Image src='/tmdb-hor.svg' alt='tmdb-api' marginTop={3} marginBottom={2} width={150} />
                     </PopoverBody>
                 </PopoverContent>
             </Portal>
+            <SimilarMoviesBuyModal open={modalOpen} setOpen={setModalOpen} revelar={revelar} setRevelar={setRevelar} setCookie={setCookie} />
         </Popover>
     );
 }

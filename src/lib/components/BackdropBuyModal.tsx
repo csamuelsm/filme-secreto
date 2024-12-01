@@ -10,12 +10,13 @@ import { useClipboard } from '@chakra-ui/react';
 type ModalProps = {
     open: boolean,
     setOpen: Dispatch<SetStateAction<boolean>>,
-    hintNumber: number,
-    setHintNumber: Dispatch<SetStateAction<number>>,
-    setCookie: (val:number) => void,
+    setBackdropView: Dispatch<SetStateAction<boolean>>,
+    setCookies: () => void,
+    //hintNumber: number,
+    //setHintNumber: Dispatch<SetStateAction<number>>,
 }
 
-function HintsBuyModal(props:ModalProps) {
+function BackdropBuyModal(props:ModalProps) {
 
     const [qrcode64, setQrcode64] = useState<string>('');
     const [copiaecola, setCopiaecola] = useState<string>('');
@@ -35,7 +36,7 @@ function HintsBuyModal(props:ModalProps) {
     async function generatePaymentRequest() {
         setLoadingPayment(true);
         setPaymentRequested(true);
-        const url = '/api/payments';
+        const url = '/api/backdropPayments';
         const res = await fetch(url, {
             method: 'GET',
             headers: {
@@ -76,7 +77,7 @@ function HintsBuyModal(props:ModalProps) {
 
     async function verifyPaymentDone() {
         setVerifyingPayment(true);
-        const url = '/api/payments';
+        const url = '/api/similarPayments';
         const res = await fetch(url, {
             method: 'POST',
             headers: {
@@ -104,14 +105,16 @@ function HintsBuyModal(props:ModalProps) {
                 // aumentar a dica e fechar o modal
                 toast({
                     title: 'Pagamento verificado com sucesso!',
-                    description: "Aproveite a sua nova dica.",
+                    description: "Aproveite o seu frame.",
                     status: 'success',
                     variant: 'solid',
                     duration: 9000,
                     isClosable: true,
                 });
-                props.setCookie(props.hintNumber+1);
-                props.setHintNumber(props.hintNumber+1);
+                //props.setHintNumber(props.hintNumber+1);
+                //props.setRevelar(props.revelar-1);
+                props.setBackdropView(true);
+                props.setCookies();
                 setQrcode64('');
                 setLoadingPayment(false);
                 setPaymentRequested(false);
@@ -139,15 +142,15 @@ function HintsBuyModal(props:ModalProps) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Quer mais uma dica?
+                Quer ver mais um frame?
             </ModalHeader>
             {/*<ModalCloseButton />*/}
             <ModalBody>
                 <Text fontSize='sm' marginBottom={2}>
-                    Você pode conseguir mais uma dica por apenas <b>R$0,50</b>.
+                    Você pode conseguir ver o frame por apenas <b>R$1,00</b>.
                 </Text>
                 <Button display={!paymentRequested ? 'flex' : 'none'} onClick={generatePaymentRequest} colorScheme='red' variant='solid' size='lg' width='100%' leftIcon={<FaPix />}>
-                    Quero outra dica!
+                    Quero ver o frame!
                 </Button>
                 <Flex direction='column' width='100%' alignItems='center' marginY={5}>
                     {paymentRequested && loadingPayment && <Spinner label='Gerando QR-Code' />}
@@ -194,4 +197,4 @@ function HintsBuyModal(props:ModalProps) {
   )
 }
 
-export default HintsBuyModal
+export default BackdropBuyModal

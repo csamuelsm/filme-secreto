@@ -14,8 +14,8 @@ const payment = new Payment(client);
 
 // Step 4: Create the request object
 const body = {
-	transaction_amount: 0.5,
-	description: `Filme Secreto - Dica ${Date.now()}`,
+	transaction_amount: 1.0,
+	description: `Filme Secreto - Similar ${Date.now()}`,
 	payment_method_id: 'pix',
 	payer: {
         email: "filmesecreto@filmesecreto.com",

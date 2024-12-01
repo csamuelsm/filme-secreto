@@ -1,6 +1,8 @@
-import { Text, Image, Button, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Portal, Flex, Box, HStack } from '@chakra-ui/react';
+import { Text, Image, Button, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Portal, Flex, Box, HStack, Divider } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { FaCamera } from 'react-icons/fa';
+import { FaCamera, FaUnlock } from 'react-icons/fa';
+import BackdropBuyModal from './BackdropBuyModal';
+import Cookies from 'universal-cookie';
 
 type TmdbBackdropProps = {
     gameNumber: number,
@@ -23,6 +25,26 @@ function TmdbBackdrop(props:TmdbBackdropProps) {
     const [loading, setLoading] = useState<boolean>(true);
     const [backdrops, setBackdrops] = useState<Backdrops[]>([]);
     const [random, setRandom] = useState<number>(0);
+    const [backdropView, setBackdropView] = useState<boolean>(false);
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+    const cookies = new Cookies(`${props.gameNumber.toString()}_backdropView`, { path: '/' });
+
+    useEffect(() => {
+        // cookies do jogo
+        if(cookies.get(`${props.gameNumber.toString()}_backdropView`)) {
+            //console.log('cookies', cookies.get(props.gameNumber.toString()));
+            setBackdropView(cookies.get(`${props.gameNumber.toString()}_backdropView`));
+        };
+      }, []);
+
+    function setCookieToTrue() {
+        cookies.set(`${props.gameNumber.toString()}_backdropView`, 
+            true, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 360,
+        });
+    }
 
     async function getSimilarMovies() {
         setLoading(true);
@@ -75,11 +97,14 @@ function TmdbBackdrop(props:TmdbBackdropProps) {
                                     }))
                                 }
                         </HStack>*/}
-                        {!loading && backdrops.length > 0 && <Image src={baseImgUrl+backdrops[random].file_path} />}
+                        {!loading && backdrops.length > 0 && <Image filter='auto' blur={!backdropView ? '8px' : '0px'} src={baseImgUrl+backdrops[random].file_path} />}
+                        <Divider marginY={2} />
+                        <Button leftIcon={<FaUnlock />} size='xs' colorScheme='red' isDisabled={backdropView} onClick={() => setModalOpen(true)}>Revelar frame</Button>
                         <Image src='/tmdb-hor.svg' alt='tmdb-api' marginTop={3} marginBottom={2} width={150} />
                     </PopoverBody>
                 </PopoverContent>
             </Portal>
+            <BackdropBuyModal open={modalOpen} setOpen={setModalOpen} setBackdropView={setBackdropView} setCookies={setCookieToTrue} />
         </Popover>
     );
 }
