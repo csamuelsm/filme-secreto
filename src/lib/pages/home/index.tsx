@@ -46,8 +46,9 @@ export default function Home () {
         path: '/',
         maxAge: 60*60*24*360,
        });
-       setUpdatesModal(true); //Creates a cookie and shows modal.
+       //setUpdatesModal(true); //Creates a cookie and shows modal.
     }
+    setUpdatesModal(true);
   },[]);
 
   useEffect(() => {

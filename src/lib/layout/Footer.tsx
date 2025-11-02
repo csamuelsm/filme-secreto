@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 //import { track } from '@vercel/analytics';
 import DonationRequest from '../components/DonationRequest';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
-import { FaGithubAlt, FaProductHunt, FaHandHoldingHeart } from "react-icons/fa6";
+import { FaClipboardList, FaHandHoldingHeart } from "react-icons/fa6";
 
 type FooterProps = {
   setDonation: Dispatch<SetStateAction<boolean>>,
@@ -37,13 +37,13 @@ const Footer = ( props:FooterProps ) => {
         </WrapItem>*/}
 
         <WrapItem>
-          <Link href='https://www.producthunt.com/products/guess-the-movie-2' isExternal>
-            <Button colorScheme='orange' leftIcon={<FaProductHunt />} variant='outline'>ProductHunt</Button>
+          <Link href='https://forms.gle/w8PgxWkxSjKBfxBi6' isExternal>
+            <Button colorScheme='yellow' leftIcon={<FaClipboardList />} variant='solid'>Sugira um filme!</Button>
           </Link>
         </WrapItem>
 
         <WrapItem>
-          <Button display='block' width='auto' colorScheme='red' variant='solid' leftIcon={<FaHandHoldingHeart />}
+          <Button display='block' width='auto' colorScheme='red' variant='outline' leftIcon={<FaHandHoldingHeart />}
               onClick={() => {
                   props.setDonation(true);
               }}>

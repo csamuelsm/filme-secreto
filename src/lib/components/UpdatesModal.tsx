@@ -3,7 +3,7 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { FaPaypal } from 'react-icons/fa';
 import { FaPix } from 'react-icons/fa6';
 import { MdCheckCircle } from 'react-icons/md';
-import { SiPicpay } from 'react-icons/si';
+import { SiMercadopago } from 'react-icons/si';
 
 type ModalProps = {
     open: boolean,
@@ -17,25 +17,27 @@ function UpdatesModal(props:ModalProps) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Atualizações do Filme Secreto
+                O Filme Secreto pode sair do ar!
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 <Text fontSize='sm' marginBottom={2}>
-                    Olá, caros usuários do Filme Secreto! Gostaria de informá-los sobre algumas correções e atualizações no Filme Secreto.
+                    Olá, caros usuários do Filme Secreto! 
                 </Text>
-                <List fontSize='sm' spacing={2}>
-                    <ListItem><ListIcon as={MdCheckCircle} color='green.500' /><b>31/10/2024</b>: Todos os jogos antigos que não estavam funcionando agora estão disponíveis! 🥳</ListItem>
-                    <ListItem><ListIcon as={MdCheckCircle} color='green.500' /><b>31/10/2024</b>: Novos filmes foram adicionados. Então aproveitem e divirtam-se com os novos filmes e os jogos antigos! <b>Ah, e compartilhem com seus amigos!📣😎👌🔥</b></ListItem>
-                </List>
-                <Divider marginY={2}/>
-                <Text fontSize='sm' marginBottom={2} marginTop={2}>
-                    Um outro comunicado que gostaria de dar é o seguinte: <Text as='mark'><b><u>não é possível monetizar o Filme Secreto</u></b></Text>. 
-                    E, apesar do jogo estar recebendo uma grande quantidade de acessos, eu continuo trabalhando nele sem ganhar um centavo.
-                    Então, considere apoiar o jogo utilizando uma das opções abaixo.
+                <Text fontSize='sm' marginBottom={2}>
+                    Gostaria de informá-los que, infelizmente, <b>o Filme Secreto pode sair de cartaz em breve.</b> 😢
+                </Text>
+                <Text fontSize='sm' marginBottom={2}>
+                    Nos últimos dois anos, o jogo tem sido mantido com muito carinho, mas o domínio <u>filme-secreto.com.br</u> <b>vence no dia 13/11</b>, e infelizmente ainda não temos recursos para renová-lo 💔
+                </Text>
+                <Text fontSize='sm' marginBottom={2}>
+                    💸 Como já falei antes por aqui, <b>não é possível monetizar o Filme Secreto</b> devido a utilização de nomes e dados de filmes de uma base de dados terceirizada. Portanto, eu só posso receber algo através de doações.
+                </Text>
+                <Text fontSize='sm' marginBottom={2}>
+                    Se você se diverte tentando adivinhar filmes por aqui e quer que o jogo continue vivo, <b>considere fazer uma doação através de uma das opções abaixo para ajudar a manter o projeto no ar.</b> 🙏
                 </Text>
                 <Text fontSize='sm'>
-                    Bom jogo e feliz halloween! 🎃👻🍬🦇💀🧡
+                    Obrigado! Espero que possamos manter o Filme Secreto vivo! 👋🤗
                 </Text>
             </ModalBody>
             <ModalFooter>
@@ -52,9 +54,9 @@ function UpdatesModal(props:ModalProps) {
                     }}>
                         Pix
                     </Button>
-                    <Link href='https://picpay.me/csamuelssm' isExternal>
-                        <Button w='100%' leftIcon={<SiPicpay/>} variant='outline' colorScheme='whatsapp'>
-                            PicPay
+                    <Link href='https://link.mercadopago.com.br/filmesecreto' isExternal>
+                        <Button w='100%' leftIcon={<SiMercadopago/>} variant='outline' colorScheme='whatsapp'>
+                            MercadoPago
                         </Button>
                     </Link>
                     <Link href='https://www.paypal.com/donate/?hosted_button_id=DE9ZRCNT78QW4' isExternal>
