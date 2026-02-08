@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     url: 'https://filme-secreto.com.br/',
     title: 'Filme Secreto',
-    description: 'O objetivo de Filme Secreto é acertar o filme secreto do dia com a ajuda de uma IA. Para isso, você pode chutar filmes e um algoritmo de inteligência artificial dirá o quão parecido com o filme secreto é o filme que você chutou. É um jogo similar a Contexto e Termooo.',
+    description: 'O objetivo de Filme Secreto é acertar o filme secreto do dia com base na similaridade com outros filmes. Para isso, você pode chutar filmes e você receberá dicas para ir na direção do filme secreto. É um jogo similar a Contexto e Termooo.',
     images: {
       url: 'gtm-og-image.png',
       alt: 'Filme Secreto og-image',
