@@ -37,7 +37,7 @@ export default function Home () {
 
   const cookies = new Cookies('updates');
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     //console.log('cookies', cookies.get('updates'));
     if (cookies.get('updates')) {
       setUpdatesModal(false); //Modal does not open if cookie exists
@@ -49,7 +49,7 @@ export default function Home () {
        //setUpdatesModal(true); //Creates a cookie and shows modal.
     }
     setUpdatesModal(true);
-  },[]);
+  },[]);*/
 
   useEffect(() => {
 

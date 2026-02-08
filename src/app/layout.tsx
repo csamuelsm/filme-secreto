@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   themeColor: '#FFFFFF',
   openGraph: {
-    url: 'https://filme-secreto.com.br/',
+    url: 'https://filme-secreto.vercel.app/',
     title: 'Filme Secreto',
     description: 'O objetivo de Filme Secreto é acertar o filme secreto do dia com base na similaridade com outros filmes. Para isso, você pode chutar filmes e você receberá dicas para ir na direção do filme secreto. É um jogo similar a Contexto e Termooo.',
     images: {
